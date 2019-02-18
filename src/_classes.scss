@@ -1,0 +1,131 @@
+@import "./variables";
+
+.btn {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 3px;
+    font-weight: $button_weight;
+}
+
+.f_auto {
+    flex: auto
+}
+
+.flex_r_wrap {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.flex_c_wrap {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.flex_r_nowrap {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.flex_c_nowrap {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.justify_center {
+    justify-content: center;
+}
+
+.justify_end {
+    justify-content: flex-end;
+}
+
+.justify_start {
+    justify-content: flex-start;
+}
+
+.p10 {
+    padding: 10px;
+}
+
+.p15 {
+    padding: 15px;
+}
+
+.p20 {
+    padding: 20px;
+}
+
+.outline_contrast {
+    background: transparent;
+    border: 1px solid $main_contrast;
+    color: $main_contrast;
+    box-shadow: 0px 0px 0px 1px transparent;
+    transition: color 0.6s, backgroud-color 0.6s, border 0.6s, box-shadow 0.3s;
+
+    &:hover {
+        background: $main_contrast;
+        color: $main;
+        border: 1px solid $main;
+        box-shadow: 0px 0px 0px 1px $main_contrast;
+    }
+}
+
+.outline_navi {
+    background: transparent;
+    border: 1px solid $main_navi;
+    color: $main_navi;
+    box-shadow: 0px 0px 0px 1px transparent;
+    transition: color 0.6s, backgroud-color 0.6s, border 0.6s, box-shadow 0.3s;
+
+    &:hover {
+        background: $main_navi;
+        color: $main;
+        border: 1px solid $main;
+        box-shadow: 0px 0px 0px 1px $main_navi;
+    }
+}
+
+.main_background {
+    background-color: $main;
+}
+
+.main_contrast_background {
+    background-color: $main_contrast;
+}
+
+.main_navi_background {
+    background-color: $main_navi;
+}
+
+.spacer {
+    flex: 10000 10000 0%;
+}
+
+.paragraph_highlight {
+    border-left: 3px solid $main_contrast;
+    padding-left: 10px;
+}
+
+.highlight_title {
+    position: relative;
+    color: $main;
+    z-index: 2;
+
+    &::after {
+        height: 10px;
+        width: 100%;
+        background-color: $main_contrast;
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        content: "";
+        z-index: -1;
+    }
+}
