@@ -8,6 +8,12 @@
     padding: 8px;
     border-radius: 3px;
     font-weight: $button_weight;
+    max-width: 300px;
+    margin: auto;
+
+    @media screen and (max-width: 400px) {
+        max-width: 100%;
+    }
 }
 
 .f_auto {
@@ -111,6 +117,15 @@
 .paragraph_highlight {
     border-left: 3px solid $main_contrast;
     padding-left: 10px;
+}
+
+.title {
+    color: $main;
+    margin-bottom: 0rem;
+
+    &::first-letter {
+        font-size: 120%;
+    }
 }
 
 .highlight_title {
