@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Lora|Montserrat');
+@import "./variables";
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: $title_fonts;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: $body_weight;
+  min-height: 100vh;
+}
+
+div#root {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: stretch;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $body_fonts;
+  font-weight: $title_weight;
+}
+
+p {
+  font-size: 1rem;
+}
+
+.container {
+  padding: 10px;
+}
