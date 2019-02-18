@@ -57,4 +57,3 @@ export default function about(props){
         </div>
     )
 }
- src/components/app_footer.jsx src/components/app_footer.scss src/components/app_header.jsx src/components/app_header.scss src/components/app_main.jsx src/components/app_main.scss
