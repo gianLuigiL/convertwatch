@@ -1,0 +1,28 @@
+@import "../variables";
+
+footer {
+    background: $main;
+    padding: 10px;
+    justify-self: flex-end;
+    flex: 1 1 auto;
+
+    div {
+        &.social {
+
+        }
+
+        &.content {
+            text-align: center;
+
+            ul {
+                list-style-type: none;
+                padding: 0;
+
+                li {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
