@@ -16,8 +16,20 @@
     }
 }
 
+.btn-lg {
+    width: 300px;
+
+    @media screen and (max-width: 400px) {
+        width: 100%;
+    }
+}
+
 .f_auto {
     flex: auto
+}
+
+.f_100 {
+    flex: 1 1 100%;
 }
 
 .flex_r_wrap {
@@ -40,7 +52,7 @@
     flex-flow: column nowrap;
 }
 
-.align-center {
+.align_center {
     align-items: center;
 }
 
@@ -143,4 +155,10 @@
         content: "";
         z-index: -1;
     }
+}
+
+.muted {
+    margin: 0 0 10px;
+    font-size: 80%;
+    color: grey;
 }
