@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Lora|Montserrat');
 @import "./variables";
 
+ * {
+   box-sizing: border-box;
+ }
 html {
   min-height: 100vh;
 }
