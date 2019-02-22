@@ -27,6 +27,7 @@ export default class App extends React.Component {
       max_margin: 10,
       min_margin: 0,
       email: null,
+      is_valid_email: false,
       terms_accepted: false
     }
 
@@ -35,6 +36,7 @@ export default class App extends React.Component {
     this.increase_margin = this.increase_margin.bind(this);
     this.decrease_margin = this.decrease_margin.bind(this);
     this.accept_terms = this.accept_terms.bind(this);
+    this.set_email = this.set_email.bind(this);
   }
 
   componentDidMount(){
@@ -68,6 +70,7 @@ export default class App extends React.Component {
           margin={this.state.margin}
 
           accept_terms={this.accept_terms}
+          set_email={this.set_email}
         />
         <AppFooter />
       </>
@@ -106,6 +109,19 @@ export default class App extends React.Component {
     this.setState({
       margin: this.state.margin - 1
     })
+  }
+
+  set_email(email){
+    if(!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
+      this.setState({
+        is_valid_email: false
+      })
+    } else {
+      this.setState({
+        email,
+        is_valid_email: true
+      })
+    }
   }
 
   accept_terms(e){
