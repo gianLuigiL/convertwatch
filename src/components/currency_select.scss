@@ -1,0 +1,57 @@
+@import "../variables";
+
+form {
+    display: grid;
+    grid-template-columns: auto ;
+    grid-gap: 15px 10px;
+
+    @media screen and (min-width: 500px) {
+        grid-template-columns: auto auto ;
+    }
+    @media screen and (min-width: 700px) {
+        grid-template-columns: auto auto auto;
+    }
+
+    @media screen and (min-width: 900px) {
+        grid-template-columns: auto auto auto auto;
+    }
+    @media screen and (min-width: 1200px) {
+        grid-template-columns: auto auto auto auto auto;
+    }
+
+    label.currency_option {
+        display: inline-flex;
+        align-items: stretch;
+        border: 2px solid $main;
+        border-radius: 35px;
+        overflow: hidden;
+
+        input {
+            display: none;
+
+            &:checked + span {
+                background: $main_contrast
+            }
+        }
+
+        span {
+            display: inline-flex;
+            height: 45px;
+            width: 100%;
+            padding: 2px;
+            background-color: initial;
+            transition: background-color 0.5s;
+
+            img {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    button {
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+}
