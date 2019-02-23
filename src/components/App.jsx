@@ -1,7 +1,9 @@
 import React from 'react'
+import {BrowserRouter, Route} from "react-router-dom";
 import AppHeader from './app_header';
 import AppFooter from './app_footer';
 import AppMain from './app_main';
+
 
 import { getRatios } from "../helper/converter_functions";
 
@@ -71,6 +73,7 @@ export default class App extends React.Component {
     return (
       <>
         <AppHeader />
+        <BrowserRouter>
         <AppMain 
           initial_currency={this.state.initial_currency}
           target_currency={this.state.target_currency}
@@ -88,6 +91,7 @@ export default class App extends React.Component {
 
           set_email={this.set_email}
         />
+        </BrowserRouter>
         <AppFooter />
       </>
     )
