@@ -1,0 +1,29 @@
+button.progress {
+    overflow: hidden;
+
+    &:hover {
+        &::after {
+            height: 500px;
+            width: 500px;
+        }
+    }
+
+    &:active {
+        box-shadow: 0px 0px 0px transparent;
+    }
+
+    &::after {
+        position: absolute;
+        height: 0px;
+        width: 0px;
+        content: "";
+        border-radius: 50%;
+        z-index: 1;
+        transition: height 0.4s, width 0.4s;
+    }
+    
+
+    span {
+        z-index: 2;
+    }
+}
