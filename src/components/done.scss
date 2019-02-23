@@ -1,0 +1,18 @@
+@import "../variables";
+
+div.confirm {
+    .fb-share-button {
+    }
+    h3 {
+        color: $main_navi;
+    }
+    p {
+        font-family: $title_fonts;
+    }
+
+    button {
+        &:not(:last-of-type) {
+            margin-bottom: 20px;
+        }
+    }
+}
