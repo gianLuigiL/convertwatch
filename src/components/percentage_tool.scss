@@ -1,0 +1,108 @@
+@import "../classes";
+
+div.percentage_container {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    max-width: 300px;
+    margin: auto;
+
+    div.minus_handle, div.plus_handle {
+        position: relative;
+
+        button {
+            position: relative;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            font-weight: 800;
+            font-size: 1.2em;
+
+            &:active {
+                box-shadow: 0px 0px 0px transparent;
+            }
+
+            &:hover {
+                img {
+                    filter: hue-rotate(270deg) brightness(2.25);
+                }
+
+                &::after {
+                    height: 50px;
+                    width: 50px;
+                }
+            }
+
+            &::after {
+                position: absolute;
+                height: 0px;
+                width: 0px;
+                content: "";
+                border-radius: 50%;
+                z-index: 1;
+                transition: height 0.4s, width 0.4s;
+            }
+
+            img {
+                max-width: 70%;
+                z-index: 2;
+            }
+        }
+    }
+
+    div.percentage_value {
+        margin: 0 20px;
+        width: 120px;
+        height: 120px;
+        font-size: 2em;
+        font-family: $title_fonts;
+        line-height: 0px;
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+        border-radius: 50%;
+
+        span {
+            position: relative;
+            height: 110px;
+            width: 110px;
+            border: 5px solid $main_navi;
+            border-radius: 50%;
+            color: $main;
+            font-weight: 800;
+
+            &::after {
+                position: absolute;
+                top: 77%;
+                left: 80%;
+                content: "%";
+                font-weight: 800;
+                color: $main_contrast;
+                text-shadow: 0px 0px 3px $main,0px 0px 3px $main,0px 0px 3px $main,0px 0px 3px $main;
+            }
+        }
+    }
+    p.hint {
+        font-family: $title_fonts;
+
+        &:not(.empty) {
+            background-repeat: no-repeat;
+            background-position: 0px 0px;
+            background-size: 20px 20px;
+    
+            &.ok {
+                background-image: url("../images/interface_icons/ok.svg");
+            }
+    
+            &.alert {
+                background-image: url("../images/interface_icons/alert.svg");
+            }
+    
+            &.red_alert {
+                background-image: url("../images/interface_icons/red_alert.svg");
+            }
+    
+            &::first-letter {
+                float: left;
+                margin-left: 20px;
+            }        }
+    }
+}
