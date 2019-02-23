@@ -3,29 +3,32 @@ import AppHeader from './app_header';
 import AppFooter from './app_footer';
 import AppMain from './app_main';
 
-import pick from "lodash/pick";
-import { getRatios } from "../converter_functions";
+import { getRatios } from "../helper/converter_functions";
 
+//Currencies to retrieve and result 
+import currencies_details from "../currencies/currencies_details";
+//Array of symbols of the supported currencies
+const allowed_currencies = currencies_details.map(el => el.symbol);
 
+const sorted_currencies = currencies_details.sort( (a, b) => a.symbol.charCodeAt(0) - b.symbol.charCodeAt(0) )
 
 async function getCurrencies(){
   const results = await (await fetch(`https://api.exchangeratesapi.io/latest`)).json();
   return results;
 }
 
-//Currencies to retrieve and result 
-const allowed_currencies = ["USD", "EUR", "JPY", "GBP", "AUD", "CAD", "CHF", "CNY", "SEK" ,"ZAR", "RUB"];
-
 export default class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      //Don't load anything until resource gets available
       currencies: [],
       initial_currency: null,
       target_currency: null,
       margin: 0,
       max_margin: 10,
       min_margin: 0,
+      margin_value: 1,
       email: null,
       is_valid_email: false,
       terms_accepted: false
@@ -43,14 +46,25 @@ export default class App extends React.Component {
 
     getCurrencies()
     .then(currencies => {
+      //The base is computed with eur so set the default ratio for eur at 1.00
       currencies.rates.EUR = 1;
-      console.log(currencies);
+      //Set currencies only when they have returned to prevent unmatching results
       this.setState({
-        currencies: Object.entries(pick(currencies.rates, allowed_currencies)),
+        currencies: currencies_details,
       });
-
-      console.log(getRatios(currencies))
-    });
+    }).catch(err => {
+      //Retry to retrieve results or alert the user
+      getCurrencies()
+      .then(currencies => {
+        currencies.rates.EUR = 1;
+        this.setState({
+          currencies: sorted_currencies,
+          carrency_ratios: getRatios(currencies)
+        })
+      }).catch(err => {
+        alert("Something went wrong while trying to reach the European Central Bank. Please reload and try again.");
+      })
+    })
   }
 
   render(){
@@ -70,6 +84,8 @@ export default class App extends React.Component {
           margin={this.state.margin}
 
           accept_terms={this.accept_terms}
+          terms_accepted={this.state.terms_accepted}
+
           set_email={this.set_email}
         />
         <AppFooter />
@@ -89,18 +105,20 @@ export default class App extends React.Component {
 
   set_target_currency({target: {value}}){
     //If the value is injected or is forced into being the same as the initial, return.
-    if( !allowed_currencies.includes(value) || value === this.state.target_currency ) {
+    if( !allowed_currencies.includes(value) || value === this.state.target_currency) {
       return;
     }
     this.setState({
-      target_currency: value
+      target_currency: value,
     })
   }
 
   increase_margin(){
-    if(this.state.margin === this.state.max_margin) return;
+    //Return if the margin is out of bounds or itf the currencies are not set
+    if(this.state.margin === this.state.max_margin || (!this.state.initial_currency && !this.state.target_currency)) return false;
     this.setState({
-      margin: this.state.margin + 1
+      margin: this.state.margin + 1,
+      margin_value: this.state.currency_rates[this.state.initial_currency][this.state.target_currency] * ( ( this.state.margin + 1 ) / 100 )
     })
   }
 

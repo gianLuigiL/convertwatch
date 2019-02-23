@@ -4,15 +4,21 @@ import "./currency_select.scss";
 import ProgressButton from './progress_button';
 
 export default function CurrencySelect(props) {
-    const labels = props.currencies.map(el => {
-        if (el[0] === props.invalid_choice) return "";
+    //currencies is an array of objs like [{name: "US Dollar", symbol: "USD"}]
+    const labels = props.currencies.map( el => {
+        const image = require("../images/currency_icons/" + el.symbol.toLowerCase() + ".svg")
+
+        if (el.symbol === props.invalid_choice) return "";
         return (
-            <label key={el[0]} className="currency_option">
-                <input type="radio" name="currency" id={el[0]} value={el[0]} onChange={props.changeHandler}/>
+            <label key={el.symbol} className="currency_option">
+                <input type="radio" name="currency" id={el.symbol} value={el.symbol} onChange={props.changeHandler}/>
                 <span className="align_center">
-                    <img src={`./assets/images/currency_icons/${el[0].toLowerCase()}.svg`} alt={el[0] + " currency symbol"}/>
-                    
-                    {el[0]}            
+                    <span className="currency_image">
+                        {<img src={image} alt={el.name + " currency symbol"}/>}
+                    </span>
+                    <span className="currency_symbol">{el.symbol}</span> 
+                    &nbsp;&bull;&nbsp;
+                    <span className="currency_name">{el.name}</span>
                 </span>
 
             </label>
