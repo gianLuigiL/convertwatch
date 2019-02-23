@@ -18,6 +18,8 @@
 
 .btn-lg {
     width: 300px;
+    padding: 10px;
+    font-size: 1.2em;
 
     @media screen and (max-width: 400px) {
         width: 100%;
@@ -81,25 +83,37 @@
 }
 
 .outline_contrast {
+    position: relative;
     background: transparent;
     border: 1px solid $main_contrast;
     color: $main_contrast;
-    box-shadow: 0px 0px 0px 1px transparent;
+    box-shadow: 0px 0px 0px 1px transparent, 6px 6px 0px $main_navi;
     transition: color 0.6s, backgroud-color 0.6s, border 0.6s, box-shadow 0.3s;
 
+    &::after {
+        top: 50%;
+        left: 50%;
+        background-color: $main_contrast;
+        transform: translate(-50%, -50%);
+    }
+
     &:hover {
-        background: $main_contrast;
         color: $main;
         border: 1px solid $main;
-        box-shadow: 0px 0px 0px 1px $main_contrast;
+        box-shadow: 0px 0px 0px 1px $main_contrast, 6px 6px 0px $main_navi;
+    }
+
+    &.btn {
+        box-shadow: 0px 0px 0px 1px transparent, 3px 3px 0px $main_navi;
     }
 }
 
 .outline_navi {
+    position: relative;
     background: transparent;
     border: 1px solid $main_navi;
     color: $main_navi;
-    box-shadow: 0px 0px 0px 1px transparent;
+    box-shadow: 0px 0px 0px 1px transparent, 6px 6px 0px $main_navi;
     transition: color 0.6s, backgroud-color 0.6s, border 0.6s, box-shadow 0.3s;
 
     &:hover {
@@ -107,6 +121,17 @@
         color: $main;
         border: 1px solid $main;
         box-shadow: 0px 0px 0px 1px $main_navi;
+    }
+
+    &::after {
+        top: 50%;
+        left: 50%;
+        background-color: $main_contrast;
+        transform: translate(-50%, -50%);
+    }
+
+    &.btn {
+        box-shadow: 0px 0px 0px 1px transparent, 3px 3px 0px $main_navi;
     }
 }
 
@@ -132,8 +157,11 @@
 }
 
 .title {
-    color: $main;
+    color: $main_contrast;
     margin-bottom: 0rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-family: $title_fonts;
 
     &::first-letter {
         font-size: 120%;

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lora|Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Raleway:700');
 @import "./variables";
 
  * {
@@ -12,7 +13,7 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: $title_fonts;
+  font-family: $body_fonts;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: $body_weight;
@@ -39,4 +40,43 @@ p {
 
 .container {
   padding: 10px;
+}
+
+span.custom_checkbox_container {
+  display: inline-block;
+  overflow: hidden;
+  height: 20px;
+
+  input {
+      display: none;
+
+      &:checked + span.custom_checkbox {
+          background-color: $main;
+          border: 1px solid $main_contrast;
+
+          img {
+              width: 15px;
+              height: 15px;
+          }
+      }
+  }
+  span.custom_checkbox {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid $main;
+    background: rgba(0,0,0,0.05);
+    transition: all 0.4s;
+    margin-right: 10px;
+
+    img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0px;
+        transition: all 0.4s;
+    }
+  }
 }
