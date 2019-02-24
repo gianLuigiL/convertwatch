@@ -4,9 +4,6 @@ import "./currency_select.scss";
 import ProgressButton from './progress_button';
 
 class CurrencySelect extends React.Component {
-    constructor(props){
-        super(props);
-    }
 
     componentDidMount(){
         window.scrollTo({
@@ -19,12 +16,20 @@ class CurrencySelect extends React.Component {
     render(){
         //currencies is an array of objs like [{name: "US Dollar", symbol: "USD"}]
         const labels = this.props.currencies.map( el => {
+
             const image = require("../images/currency_icons/" + el.symbol.toLowerCase() + ".svg");
+            const is_checked = this.props.preselected_choice === el.symbol ? "checked" : "";
 
             if (el.symbol === this.props.invalid_choice) return "";
             return (
                 <label key={el.symbol} className="currency_option">
-                    <input type="radio" name="currency" id={el.symbol} value={el.symbol} onChange={this.props.changeHandler}/>
+                    <input  type="radio" 
+                            name="currency" 
+                            id={el.symbol} 
+                            value={el.symbol}
+                            checked={is_checked}
+                            onChange={this.props.changeHandler}
+                            />
                     <span className="align_center">
                         <span className="currency_image">
                             {<img src={image} alt={el.name + " currency symbol"}/>}

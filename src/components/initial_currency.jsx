@@ -13,6 +13,7 @@ export default function InitialCurrency(props) {
                 {...props} 
                 changeHandler={props.set_initial_currency} 
                 invalid_choice={props.target_currency} 
+                preselected_choice={props.initial_currency} 
                 next_section={props.next_section} 
                 message={message}
                 can_navigate={can_navigate}    
