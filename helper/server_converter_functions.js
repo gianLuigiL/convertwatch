@@ -1,12 +1,12 @@
 //Filtering function
-import { pick } from "lodash"
+const { pick } = require("lodash");
 
 //Get only the allowed currencies to avoid overhead
-import allowed_currencies_details from "../currencies/currencies_details";
+const allowed_currencies_details = require("../client/src/currencies/currencies_details");
 const allowed_currencies = allowed_currencies_details.map(el => el.symbol);
 
 
-export const getRatios = (eur_based_ratios) => {
+const getRatios = (eur_based_ratios) => {
     const filtered = pick(eur_based_ratios, allowed_currencies)
     //Create base data with default set and add 1:1 ratio with base
     let ratios = { ...filtered };
@@ -32,13 +32,17 @@ export const getRatios = (eur_based_ratios) => {
     return ratios;
 }
 
-export const processHistoricalRatios = (entries) => {
-    const historical_rates = {};
+const processHistoricalRatios = (entries) => {
+    let historical_rates = [];
     //Create for every entry create ratio EUR = 1, the base of the records is in facts eur
     for(const date in entries.rates) {
         //Add the base eur 1:1 entry since the ratios are eur based and filter the currencies that are not allowed
         const filtered = pick({...entries.rates[date], EUR: 1 }, allowed_currencies)
-        historical_rates[date] =  getRatios(filtered);
+        historical_rates = [...historical_rates, ...[{date, ratios: getRatios(filtered)}] ];
     }
     return historical_rates;
+}
+
+module.exports = {
+    getRatios, processHistoricalRatios
 }

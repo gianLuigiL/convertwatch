@@ -3,12 +3,11 @@ import AppHeader from './app_header';
 import AppFooter from './app_footer';
 import AppMain from './app_main';
 import { withRouter } from "react-router-dom";
-
+//Currencies to retrieve and result 
+import currencies_details from "../currencies/currencies_details";
 
 import { getRatios } from "../helper/converter_functions";
 
-//Currencies to retrieve and result 
-import currencies_details from "../currencies/currencies_details";
 //Array of symbols of the supported currencies
 const allowed_currencies = currencies_details.map(el => el.symbol);
 
@@ -53,12 +52,12 @@ class App extends React.Component {
 
     getCurrencies()
     .then(currencies => {
-      //The base is computed with eur so set the default ratio for eur at 1.00
-      currencies.rates.EUR = 1;
+      //Set the base ratios to eur base
+      const eur_based_ratios = {...currencies.rates, EUR: 1};
       //Set currencies only when they have returned to prevent unmatching results
       this.setState({
         currencies: currencies_details,
-        currency_rates: getRatios(currencies)
+        currency_rates: getRatios(eur_based_ratios)
       });
     }).catch(err => {
       //Retry to retrieve results or alert the user
@@ -70,6 +69,7 @@ class App extends React.Component {
           currency_rates: getRatios(currencies)
         })
       }).catch(err => {
+        console.log(err);
         alert("Something went wrong while trying to reach the European Central Bank. Please reload and try again.");
       })
     })
