@@ -11,7 +11,7 @@ export default function DonePage(props) {
             <div className="confirm">
             <h3>HOORAY! You're all set!</h3>
                 <p>Now fingers crossed! <span role="img" aria-label="fingers crossed image">🤞</span> <br/>You can also set up another reminder with the button below or you can spread the voice on Facebook. 😊</p>
-                <ProgressButton>START AGAIN</ProgressButton>
+                <ProgressButton next_section={"/"} can_navigate={true}>START AGAIN</ProgressButton>
             </div>
         </>
 

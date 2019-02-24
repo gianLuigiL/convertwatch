@@ -1,5 +1,4 @@
 import React from 'react'
-import {BrowserRouter} from "react-router-dom";
 import AppHeader from './app_header';
 import AppFooter from './app_footer';
 import AppMain from './app_main';
@@ -74,7 +73,6 @@ export default class App extends React.Component {
     return (
       <>
         <AppHeader />
-        <BrowserRouter>
           <AppMain 
             initial_currency={this.state.initial_currency}
             target_currency={this.state.target_currency}
@@ -90,9 +88,9 @@ export default class App extends React.Component {
             accept_terms={this.accept_terms}
             terms_accepted={this.state.terms_accepted}
 
+            email={this.state.email}
             set_email={this.set_email}
           />
-        </BrowserRouter>
         <AppFooter />
       </>
     )
@@ -113,24 +111,29 @@ export default class App extends React.Component {
     if( !allowed_currencies.includes(value) || value === this.state.initial_currency) {
       return;
     }
+    const current_ratio = this.state.currency_rates[this.state.initial_currency][value];
     this.setState({
       target_currency: value,
+      margin_value: current_ratio
     })
   }
 
   increase_margin(){
-    //Return if the margin is out of bounds or itf the currencies are not set
+    const current_ratio = this.state.currency_rates[this.state.initial_currency][this.state.target_currency];
+    //Return if the margin is out of bounds or if the currencies are not set
     if(this.state.margin === this.state.max_margin || (!this.state.initial_currency && !this.state.target_currency)) return false;
     this.setState({
       margin: this.state.margin + 1,
-      margin_value: this.state.currency_rates[this.state.initial_currency][this.state.target_currency] * ( ( this.state.margin + 1 ) / 100 )
+      margin_value: +current_ratio - current_ratio * ( ( this.state.margin + 1 ) / 100 )
     })
   }
 
   decrease_margin(){
-    if(this.state.margin === this.state.min_margin) return;
+    const current_ratio = this.state.currency_rates[this.state.initial_currency][this.state.target_currency];
+    if(this.state.margin === this.state.min_margin || (!this.state.initial_currency && !this.state.target_currency)) return false;
     this.setState({
-      margin: this.state.margin - 1
+      margin: this.state.margin - 1,
+      margin_value: +current_ratio - current_ratio * ( ( this.state.margin - 1 ) / 100 )
     })
   }
 

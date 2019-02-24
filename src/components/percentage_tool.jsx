@@ -21,6 +21,8 @@ const generateMessages = (margin) => {
 
 
 export default function PercentageTool(props){
+    const message = props.margin > 0 ? "NEXT" : "PLEASE SELECT A VALID VALUE";
+    const can_navigate = props.margin > 0 || false;
 
     return (
         <form action="/">
@@ -41,7 +43,10 @@ export default function PercentageTool(props){
                     </button></div>
                 {generateMessages(props.margin)}
             </div>
-            <ProgressButton >NEXT</ProgressButton>
+            <ProgressButton 
+                next_section={props.next_section}
+                can_navigate={can_navigate}
+                >{message}</ProgressButton>
         </form>
     )
 }

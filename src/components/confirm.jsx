@@ -23,8 +23,19 @@ export default class Confirm extends React.Component {
 
     render(){
         //If there's no message don't display the element
-        const message = this.state.validation_message ? <p className="hint" ref={this.message}>{this.state.validation_message}</p> : "";
-
+        const validation_message = this.state.validation_message ? <p className="hint" ref={this.message}>{this.state.validation_message}</p> : "";
+        let progress_message = "";
+        if (this.props.email && this.props.terms_accepted) {
+            progress_message = "CONFIRM";
+        } else if (!this.props.email && this.props.terms_accepted) {
+            progress_message = "PLEASE INSERT YOUR EMAIL";
+        } else if (this.props.email && !this.props.terms_accepted) {
+            progress_message = "PLEASE ACCEPT THE TERMS";
+        } else if (!this.props.email && !this.props.terms_accepted) {
+            progress_message = "PLEASE INSERT YOUR EMAIL AND ACCEPT THE TERMS";
+        }
+        const can_navigate = this.props.email && this.props.terms_accepted;
+        
         return (
             <>
                 <Headings title="Almost there!" text="Insert your email to be notified when your target is met"/>
@@ -36,7 +47,7 @@ export default class Confirm extends React.Component {
                         </p>
                         <input type="email" name="email" id="email" placeholder="Insert your email" required ref={this.email} onInput={this.check_email}/>
                     </label>
-                    {message}
+                    {validation_message}
 
                     <label htmlFor="terms" className="terms_label flex_r_nowrap align_center">
                         <span className="custom_checkbox_container">
@@ -49,7 +60,10 @@ export default class Confirm extends React.Component {
                         I read and understand the terms.
                     </label>
 
-                   <ProgressButton>CONFIRM</ProgressButton>
+                   <ProgressButton 
+                    next_section={this.props.next_section}
+                    can_navigate={can_navigate}
+                    >{progress_message}</ProgressButton>
                 </form>
             </>
         )
