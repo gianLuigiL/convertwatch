@@ -1,15 +1,20 @@
 const express = require("express");
 const body_parser = require("body-parser");
 const {MongoClient} = require("mongodb");
+const { database } = require("./config/db_connect");
 
-MongoClient.connect("mongodb://localhost:27017/Convertwatch",{useNewUrlParser: true} ,(err, client) => {
+let db;
+
+MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
     if(err) {
         console.log("Unable to connect to MongoDB database");
         return;
     }
+
     console.log("Connected to MongoDB database");
-    const db = client.db("Convertwatch")
-    client.close();
+    db = client.db("Convertwatch");
+
+    app.listen(port, () => console.log(`Listening on port ${port}`));
 })
 
 const app = express();
@@ -20,10 +25,11 @@ app.use(body_parser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + "/client/build"))
 
-app.post(/.*/, (req, res) => {
-    /* res.redirect("/"); */
-    console.log(req.body);
-    res.status(200).send(req.body);
+//GET requests
+
+app.get(/.*/, (req, res) => {
+    res.redirect("/");
 })
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+//POST requests
+app.post("")
