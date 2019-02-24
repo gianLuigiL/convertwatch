@@ -1,4 +1,4 @@
-export default [
+module.exports = [
     {
         name: "US Dollar",
         symbol: "USD"
