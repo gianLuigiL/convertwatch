@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import AppHeader from './app_header';
 import AppFooter from './app_footer';
 import AppMain from './app_main';
@@ -53,6 +53,7 @@ export default class App extends React.Component {
       //Set currencies only when they have returned to prevent unmatching results
       this.setState({
         currencies: currencies_details,
+        currency_rates: getRatios(currencies)
       });
     }).catch(err => {
       //Retry to retrieve results or alert the user
@@ -61,7 +62,7 @@ export default class App extends React.Component {
         currencies.rates.EUR = 1;
         this.setState({
           currencies: sorted_currencies,
-          carrency_ratios: getRatios(currencies)
+          currency_rates: getRatios(currencies)
         })
       }).catch(err => {
         alert("Something went wrong while trying to reach the European Central Bank. Please reload and try again.");
@@ -74,23 +75,23 @@ export default class App extends React.Component {
       <>
         <AppHeader />
         <BrowserRouter>
-        <AppMain 
-          initial_currency={this.state.initial_currency}
-          target_currency={this.state.target_currency}
-          currencies={this.state.currencies} 
+          <AppMain 
+            initial_currency={this.state.initial_currency}
+            target_currency={this.state.target_currency}
+            currencies={this.state.currencies} 
 
-          set_initial_currency={this.set_initial_currency}
-          set_target_currency={this.set_target_currency}
+            set_initial_currency={this.set_initial_currency}
+            set_target_currency={this.set_target_currency}
 
-          increase_margin={this.increase_margin}
-          decrease_margin={this.decrease_margin}
-          margin={this.state.margin}
+            increase_margin={this.increase_margin}
+            decrease_margin={this.decrease_margin}
+            margin={this.state.margin}
 
-          accept_terms={this.accept_terms}
-          terms_accepted={this.state.terms_accepted}
+            accept_terms={this.accept_terms}
+            terms_accepted={this.state.terms_accepted}
 
-          set_email={this.set_email}
-        />
+            set_email={this.set_email}
+          />
         </BrowserRouter>
         <AppFooter />
       </>
@@ -109,7 +110,7 @@ export default class App extends React.Component {
 
   set_target_currency({target: {value}}){
     //If the value is injected or is forced into being the same as the initial, return.
-    if( !allowed_currencies.includes(value) || value === this.state.target_currency) {
+    if( !allowed_currencies.includes(value) || value === this.state.initial_currency) {
       return;
     }
     this.setState({
