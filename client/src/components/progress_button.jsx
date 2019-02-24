@@ -16,9 +16,10 @@ class ProgressButton extends React.Component{
         }
     }
 
+
     render(){
         return (
-            <button onClick={this.changeRoute} className="progress btn btn-lg outline_contrast main_background flex_r_nowrap">
+            <button onClick={this.props.clickHandler || this.changeRoute} className="progress btn btn-lg outline_contrast main_background flex_r_nowrap">
                     <span>
                         {this.props.children}
                     </span>
@@ -27,12 +28,6 @@ class ProgressButton extends React.Component{
     }
 
 
-}
-
-ProgressButton.defaultProps = {
-    clickHandler: (e)=>{
-        e.preventDefault();
-    }
 }
 
 export default withRouter(ProgressButton);

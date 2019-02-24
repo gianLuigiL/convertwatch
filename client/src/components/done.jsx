@@ -10,8 +10,13 @@ export default function DonePage(props) {
             <Headings title="Done!" text="Good job!"/>
             <div className="confirm">
             <h3>HOORAY! You're all set!</h3>
+
                 <p>Now fingers crossed! <span role="img" aria-label="fingers crossed image">🤞</span> <br/>You can also set up another reminder with the button below or you can spread the voice on Facebook. 😊</p>
-                <ProgressButton next_section={"/"} can_navigate={true}>START AGAIN</ProgressButton>
+                <ProgressButton 
+                    next_section={"/"} 
+                    can_navigate={true} 
+                    clickHandler={props.submit_data}
+                    >START AGAIN</ProgressButton>
             </div>
         </>
 

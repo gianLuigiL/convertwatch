@@ -2,6 +2,7 @@ import React from 'react'
 import AppHeader from './app_header';
 import AppFooter from './app_footer';
 import AppMain from './app_main';
+import { withRouter } from "react-router-dom";
 
 
 import { getRatios } from "../helper/converter_functions";
@@ -18,7 +19,7 @@ async function getCurrencies(){
   return results;
 }
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -41,9 +42,14 @@ export default class App extends React.Component {
     this.decrease_margin = this.decrease_margin.bind(this);
     this.accept_terms = this.accept_terms.bind(this);
     this.set_email = this.set_email.bind(this);
+    this.submit_data = this.submit_data.bind(this);
   }
 
   componentDidMount(){
+    //Redirect if the page has been loaded to a valid address but without required data
+    if(!this.state.initial_currency) {
+      this.props.history.push("/")
+    }
 
     getCurrencies()
     .then(currencies => {
@@ -90,6 +96,8 @@ export default class App extends React.Component {
 
             email={this.state.email}
             set_email={this.set_email}
+
+            submit_data={this.submit_data}
           />
         <AppFooter />
       </>
@@ -158,4 +166,26 @@ export default class App extends React.Component {
       terms_accepted: e.target.checked
     })
   }
+
+  submit_data(){
+    const {initial_currency, target_currency, margin_value, email } = this.state;
+    const body = JSON.stringify({initial_currency, target_currency, margin_value, email});
+    fetch("/add_entry",{
+      method: "POST",
+      headers : {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "x-from-browser": window ? true : false
+      },
+      body
+    })
+    .then(res => res.text())
+    .then(res => console.log(res))
+    .catch(err => {
+      alert("something went wrong, the page will now reload");
+      this.props.history.push("/")
+    })
+  }
 }
+
+export default withRouter(App);

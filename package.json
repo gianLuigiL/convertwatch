@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client": "cd client && npm start",
+    "client": "cd client && npm run dev",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail"
+    "dev": "concurrently \"nodemon server.js\" \"npm run client\" --kill-others-on-fail"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mongodb": "^3.1.13"
   }
 }
