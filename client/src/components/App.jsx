@@ -132,7 +132,7 @@ class App extends React.Component {
     if(this.state.margin === this.state.max_margin || (!this.state.initial_currency && !this.state.target_currency)) return false;
     this.setState({
       margin: this.state.margin + 1,
-      margin_value: +current_ratio - current_ratio * ( ( this.state.margin + 1 ) / 100 )
+      margin_value: +current_ratio + current_ratio * ( ( this.state.margin + 1 ) / 100 )
     })
   }
 
@@ -141,7 +141,7 @@ class App extends React.Component {
     if(this.state.margin === this.state.min_margin || (!this.state.initial_currency && !this.state.target_currency)) return false;
     this.setState({
       margin: this.state.margin - 1,
-      margin_value: +current_ratio - current_ratio * ( ( this.state.margin - 1 ) / 100 )
+      margin_value: +current_ratio + current_ratio * ( ( this.state.margin - 1 ) / 100 )
     })
   }
 
