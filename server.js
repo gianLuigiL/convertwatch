@@ -74,9 +74,9 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
 
 //GET requests
 
-app.get(/.*/, (req, res) => {
+/* app.get(/.*/, (req, res) => {
     res.redirect("/") 
-})
+}) */
 
 //POST requests
 
