@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: true}));
 
-app.use(express.static(path.join(__dirname + "./client/build")))
+app.use(express.static("client/build"))
 
 let db;
 
@@ -30,7 +30,7 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
 
     console.log("Connected to MongoDB database");
     //Bring the database outside
-    db = client.db(process.env.PORT ? "heroku_tld6rz1j" : "Convertwatch");
+    db = client.db("heroku_tld6rz1j");
 
     //Historical data only got back up to six months ago, here constructs the necessary strings
     //A library is not worth for 6 lines
@@ -77,7 +77,7 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
 
 // Render the app
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+    res.send();
 });
 
 app.get(/.*/, (req, res) => {
