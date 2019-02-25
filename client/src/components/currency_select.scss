@@ -2,18 +2,18 @@
 
 form {
     display: grid;
-    grid-template-columns: 100% ;
+    grid-template-columns: 1fr ;
     grid-gap: 15px 10px;
 
     @media screen and (min-width: 450px) {
-        grid-template-columns: 50% 50% ;
+        grid-template-columns: 1fr 1fr ;
     }
     @media screen and (min-width: 700px) {
-        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 
     @media screen and (min-width: 900px) {
-        grid-template-columns: 20% 20% 20% 20% 20%;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 
     label.currency_option {

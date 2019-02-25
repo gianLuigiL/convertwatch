@@ -21,8 +21,6 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 let db;
 
-console.log("Database:" + database)
-
 MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
     //If there's an error don't launch the app
     if(err) {
@@ -32,7 +30,7 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
 
     console.log("Connected to MongoDB database");
     //Bring the database outside
-    db = client.db("heroku_tld6rz1j");
+    db = client.db(process.env.PORT ? "heroku_tld6rz1j" : "Convertwatch");
 
     //Historical data only got back up to six months ago, here constructs the necessary strings
     //A library is not worth for 6 lines

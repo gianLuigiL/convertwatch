@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client": "cd client && npm install && npm run build",
+    "client": "cd client && npm install && npm run dev",
     "server": "nodemon server.js",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\" --kill-others-on-fail",
     "start": "node server.js",
