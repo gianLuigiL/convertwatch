@@ -7,7 +7,7 @@
     "client": "cd client && npm run build",
     "server": "nodemon server.js",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\" --kill-others-on-fail",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": "10.15.1"
