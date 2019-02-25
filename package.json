@@ -9,6 +9,9 @@
     "dev": "concurrently \"nodemon server.js\" \"npm run client\" --kill-others-on-fail",
     "start": "npm run client && node server.js"
   },
+  "engines": {
+    "node": "10..15.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gianLuigiL/convertwatch.git"
