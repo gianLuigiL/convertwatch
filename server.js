@@ -75,9 +75,14 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
 
 //GET requests
 
-/* app.get(/.*//*, (req, res) => {
+// Render the app
+app.get('/', function(req, res) {
+    res.sendfile(path.join(__dirname, '../app/index.html'));
+});
+
+app.get(/.*/, (req, res) => {
     res.redirect("/") 
-}) */
+}) 
 
 //POST requests
 
