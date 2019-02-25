@@ -63,6 +63,7 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
             })
         })
         .catch(err => {
+            console.log(err);
             console.log("Failed to remove old historical data");
         })
     //This catches errors in the exchange API request
