@@ -29,7 +29,7 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
 
     console.log("Connected to MongoDB database");
     //Bring the database outside
-    db = client.db("Convertwatch");
+    db = client.db(process.env.PORT ? "heroku_tld6rz1j" : "Convertwatch");
 
     //Historical data only got back up to six months ago, here constructs the necessary strings
     //A library is not worth for 6 lines
