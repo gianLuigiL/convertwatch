@@ -1,12 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Lora|Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Raleway:700');
-@import "./variables";
+@font-face {
+  font-family: 'Lora';
+  src: url('./fonts/Lora-Regular.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./fonts/Montserrat-Regular.ttf')  format('truetype');
+}
 
  * {
    box-sizing: border-box;
  }
 html {
   min-height: 100vh;
+  font-display: swap;
 }
 
 body {
