@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: true}));
 
-app.use(express.static("client/build"))
+app.use('/static', express.static(path.join(__dirname, 'client/build')));
 
 let db;
 
