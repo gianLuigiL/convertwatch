@@ -10,7 +10,7 @@
     "start": "npm run client && node server.js"
   },
   "engines": {
-    "node": "10..15.1"
+    "node": "10.15.1"
   },
   "repository": {
     "type": "git",
