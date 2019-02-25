@@ -90,6 +90,10 @@ class App extends React.Component {
             increase_margin={this.increase_margin}
             decrease_margin={this.decrease_margin}
             margin={this.state.margin}
+            min_margin={this.state.min_margin}
+            max_margin={this.state.max_margin}
+            margin_value={this.state.margin_value}
+            get_suggestion={this.get_suggestion}
 
             accept_terms={this.accept_terms}
             terms_accepted={this.state.terms_accepted}

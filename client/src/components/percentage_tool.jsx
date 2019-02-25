@@ -2,52 +2,122 @@ import React from 'react'
 import "./percentage_tool.scss";
 import ProgressButton from './progress_button';
 
-const generateMessages = (margin) => {
-    switch(margin) {
-        case 1: case 2:
-            return <p className="hint ok f_100">Usually happens in a matter of days.</p>;
-        case 3:
-            return <p className="hint ok f_100">The best and quickest target is indeed 3%.</p>;
-        case 4: case 5:
-            return <p className="hint ok f_100">Might require some time.</p>;
-        case 6: case 7:
-            return <p className="hint alert f_100">It starts getting unlikely.</p>;
-        case 8: case 9: case 10:
-            return <p className="hint red_alert f_100">Are we talking black monday?</p>;
-        default:
-            return <p className="hint empty f_100">Click on the plus and minus button to change the target.</p>;
+let timer;
+
+export default class PercentageTool extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+            hint: ""
+        }
     }
-}
 
+    message = this.props.margin > this.props.min_margin ? "NEXT" : "PLEASE SELECT A VALID VALUE";
+    can_navigate = this.props.margin > 0 || false;
 
-export default function PercentageTool(props){
-    const message = props.margin > 0 ? "NEXT" : "PLEASE SELECT A VALID VALUE";
-    const can_navigate = props.margin > 0 || false;
+    increase_margin = () => {
+        if(this.props.margin === this.props.max_margin) return;
+        this.props.increase_margin();
+        if(timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(this.get_suggestion, 800)
+    }
 
-    return (
-        <form action="/">
-            <div className="percentage_container p10 flex_r_wrap align_center justify_center">
-                <div className="minus_handle" onClick={props.decrease_margin}>
-                    <button  type="button" className="btn outline_contrast flew_r_nowrap align_center justify_center">
-                        <img src={require("../images/interface_icons/minus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
-                    </button>
+    decrease_margin = () => {
+        if(this.props.margin === this.props.min_margin) return;
+        this.props.decrease_margin();
+        if(timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(this.get_suggestion, 800)
+    }
+
+    str_to_time = (str) => {
+        const time =  new Date(str).getTime();
+        if (!time) {
+            alert("something went wrong while conversion check console");
+            console.log(str);
+        } else {
+            return time;
+        }
+    }
+
+    now = () => new Date().getTime();
+
+    get_hint = ({result}) => {
+        console.log(result);
+        const result_date = new Date(result.date);
+        const one_day = 1000 * 60 * 60 * 24;
+        const one_week = one_day * 7;
+        const one_month = one_day * 30;
+        
+        if (!result.date) {
+            return <p className="hint red_alert">The target hasn't been reached in six months, it's better to aim a little lower.</p>
+        } else if ( this.str_to_time(result.date) > (this.now() - one_week)){
+            return <p className="hint ok">The target has been reached less than a week ago, you can aim a little higher.</p>
+        } else if ( this.str_to_time(result.date) > (this.now() - one_week * 2 )){
+            return <p className="hint ok">The target has been reached less than two weeks ago, good enough if you're on a rush.</p>
+        } else if ( this.str_to_time(result.date) > (this.now() - one_month )){
+            return <p className="hint ok">The target has been reached in the last 30 days.</p>
+        } else if ( this.str_to_time(result.date) > (this.now() - one_month * 2 )){
+            return <p className="hint ok">The target has been reached in the last two months.</p>
+        } else {
+            return <p className="hint alert">The target has been reached the {result_date.getDate()}/{result_date.getMonth() + 1}/{result_date.getFullYear()}.</p>
+        }
+    }
+
+    get_suggestion = () => {
+        const {initial_currency, target_currency, margin_value } = this.props;
+        const body = JSON.stringify({initial_currency, target_currency, margin_value});
+        fetch("/get_suggestion",{
+            method: "POST",
+            headers : {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "x-from-browser": window ? true : false
+            },
+            body
+        })
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                hint: this.get_hint(res)
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            alert("something went wrong while retrieving suggestion, the page will now reload");
+        })
+    }
+
+    render(){
+        return (
+            <form action="/">
+                <div className="percentage_container p10 flex_r_wrap align_center justify_center">
+                    <div className="minus_handle" onClick={this.decrease_margin}>
+                        <button  type="button" className="btn outline_contrast flew_r_nowrap align_center justify_center">
+                            <img src={require("../images/interface_icons/minus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
+                        </button>
+                    </div>
+                    <div className="percentage_value flex_r_nowrap align_center justify_center">
+                        <span className="flex_r_nowrap align_center justify_center">
+                            {this.props.margin}
+                        </span>
+                    </div>
+                    <div className="plus_handle" onClick={this.increase_margin}>
+                        <button type="button" className="btn outline_contrast flew_r_nowrap align_center justify_center">
+                        <img src={require("../images/interface_icons/plus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
+                        </button></div>
+                    {this.state.hint}
                 </div>
-                <div className="percentage_value flex_r_nowrap align_center justify_center">
-                    <span className="flex_r_nowrap align_center justify_center">
-                        {props.margin}
-                    </span>
-                </div>
-                <div className="plus_handle" onClick={props.increase_margin}>
-                    <button type="button"className="btn outline_contrast flew_r_nowrap align_center justify_center">
-                    <img src={require("../images/interface_icons/plus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
-                    </button></div>
-                {generateMessages(props.margin)}
-            </div>
-            <ProgressButton 
-                next_section={props.next_section}
-                can_navigate={can_navigate}
-                >{message}</ProgressButton>
-        </form>
-    )
+                <ProgressButton 
+                    next_section={this.props.next_section}
+                    can_navigate={this.can_navigate}
+                    >{this.message}</ProgressButton>
+            </form>
+        )
+    }
 }
 

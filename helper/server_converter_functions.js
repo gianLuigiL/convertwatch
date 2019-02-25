@@ -25,7 +25,7 @@ const getRatios = (eur_based_ratios) => {
         sorted_rates.forEach( currency_to_map => {
 
             //Ratio is set like {base_curr: {curr: relative_value, curr2: relative_value}}
-            ratio[currency_arr[0]] = {...ratio[currency_arr[0]], ...{ [currency_to_map[0]]: (currency_to_map[1] / currency_arr[1]).toFixed(4) }}
+            ratio[currency_arr[0]] = {...ratio[currency_arr[0]], ...{ [currency_to_map[0]]: (currency_to_map[1] / currency_arr[1]) }}
         })
         ratios = {...ratios, ...ratio};
     })
