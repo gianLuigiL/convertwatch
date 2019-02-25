@@ -8,7 +8,7 @@
     "server": "nodemon server.js",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\" --kill-others-on-fail",
     "start": "node server.js",
-    "heroku-postbuild": "cd client && npm run client"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "engines": {
     "node": "10.15.1"
