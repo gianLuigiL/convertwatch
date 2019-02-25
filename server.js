@@ -119,10 +119,6 @@ app.post("/get_suggestion", (req, res)=>{
                     console.log("Unable to retrieve any data");
                     return
                 }
-
-                console.log(data);
-                console.log(data.length);
-                console.log(initial_currency, target_currency, valid_margin);
                 if(data.length){
                     const most_recent = data.sort( (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime() )[0];
                     res.send({result: most_recent});
