@@ -6,7 +6,8 @@
   "scripts": {
     "client": "cd client && npm run dev",
     "server": "nodemon server.js",
-    "dev": "concurrently \"nodemon server.js\" \"npm run client\" --kill-others-on-fail"
+    "dev": "concurrently \"nodemon server.js\" \"npm run client\" --kill-others-on-fail",
+    "start": "npm run client && node server.js"
   },
   "repository": {
     "type": "git",
