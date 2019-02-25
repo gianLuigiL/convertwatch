@@ -1,4 +1,5 @@
 const express = require("express");
+const compression = require("compression");
 const path = require("path");
 const body_parser = require("body-parser");
 const {MongoClient} = require("mongodb");
@@ -12,6 +13,7 @@ const { processHistoricalRatios } = require("./helper/server_converter_functions
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use(compression());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: true}));
 
