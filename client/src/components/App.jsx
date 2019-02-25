@@ -29,6 +29,7 @@ class App extends React.Component {
       margin: 0,
       max_margin: 10,
       min_margin: 0,
+      original_margin_value: 1,
       margin_value: 1,
       email: null,
       is_valid_email: false,
@@ -92,6 +93,7 @@ class App extends React.Component {
             margin={this.state.margin}
             min_margin={this.state.min_margin}
             max_margin={this.state.max_margin}
+            original_margin_value={this.state.original_margin_value}
             margin_value={this.state.margin_value}
             get_suggestion={this.get_suggestion}
 
@@ -126,7 +128,8 @@ class App extends React.Component {
     const current_ratio = this.state.currency_rates[this.state.initial_currency][value];
     this.setState({
       target_currency: value,
-      margin_value: current_ratio
+      original_margin_value: +current_ratio,
+      margin_value: +current_ratio
     })
   }
 

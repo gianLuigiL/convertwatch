@@ -1,6 +1,7 @@
 import React from 'react'
 import "./percentage_tool.scss";
 import ProgressButton from './progress_button';
+import CurrentData from './current_data';
 
 let timer;
 
@@ -9,12 +10,9 @@ export default class PercentageTool extends React.Component{
         super(props);
 
         this.state = {
-            hint: ""
+            hint: "",
         }
     }
-
-    message = this.props.margin > this.props.min_margin ? "NEXT" : "PLEASE SELECT A VALID VALUE";
-    can_navigate = this.props.margin > 0 || false;
 
     increase_margin = () => {
         if(this.props.margin === this.props.max_margin) return;
@@ -26,7 +24,7 @@ export default class PercentageTool extends React.Component{
     }
 
     decrease_margin = () => {
-        if(this.props.margin === this.props.min_margin) return;
+        if(this.props.margin === this.props.min_margin || this.props.margin - 1 === this.props.min_margin) return;
         this.props.decrease_margin();
         if(timer) {
             clearTimeout(timer);
@@ -47,7 +45,6 @@ export default class PercentageTool extends React.Component{
     now = () => new Date().getTime();
 
     get_hint = ({result}) => {
-        console.log(result);
         const result_date = new Date(result.date);
         const one_day = 1000 * 60 * 60 * 24;
         const one_week = one_day * 7;
@@ -111,11 +108,19 @@ export default class PercentageTool extends React.Component{
                         <img src={require("../images/interface_icons/plus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
                         </button></div>
                     {this.state.hint}
+
                 </div>
+                <CurrentData 
+                    initial_currency={this.props.initial_currency}                
+                    target_currency={this.props.target_currency}                
+                    original_margin_value={this.props.original_margin_value}                
+                    margin_value={this.props.margin_value}                
+                />
                 <ProgressButton 
                     next_section={this.props.next_section}
-                    can_navigate={this.can_navigate}
-                    >{this.message}</ProgressButton>
+                    can_navigate={this.props.can_navigate}
+
+                    >{this.props.can_navigate ? "NEXT" : "PLEASE SELECT A VALID VALUE"}</ProgressButton>
             </form>
         )
     }
