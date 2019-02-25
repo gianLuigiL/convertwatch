@@ -18,6 +18,8 @@ app.use(express.static(__dirname + "/client/build"))
 
 let db;
 
+console.log("Database:" + database)
+
 MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
     //If there's an error don't launch the app
     if(err) {
