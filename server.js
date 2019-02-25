@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: true}));
 
-app.use('/static', express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 let db;
 
@@ -75,14 +75,15 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
 
 //GET requests
 
-// Render the app
-app.get('/', function(req, res) {
-    res.send();
-});
-
 app.get(/.*/, (req, res) => {
     res.redirect("/") 
 }) 
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 //POST requests
 
