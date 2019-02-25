@@ -1,0 +1,39 @@
+@import "../variables";
+
+div.data_holder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-column-start: 1;
+    grid-column-end: -1;
+
+    div.data_unit {
+        h5 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-family: $title_fonts;
+            color: $main_navi;
+        }
+        p {
+            margin: 0;
+            font-family: $title_fonts;
+            font-weight: 800;
+            color: $main_contrast;
+        }
+    }
+
+    div.breakdown {
+        grid-column-start: 1;
+        grid-column-end: -1;
+
+        h3 {
+            font-family: $title_fonts;
+            color: $main_navi;
+            margin-bottom: 5px;
+        }
+        p {
+            margin-top: 5px;
+            font-family: $title_fonts;
+        }
+    }
+}
