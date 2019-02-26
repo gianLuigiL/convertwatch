@@ -19,11 +19,13 @@ class ProgressButton extends React.Component{
 
     render(){
         return (
-            <button onClick={this.props.clickHandler || this.changeRoute} className="progress btn btn-lg outline_contrast main_background flex_r_nowrap">
-                    <span>
-                        {this.props.children}
-                    </span>
-            </button>
+            <div>
+                <button onClick={this.props.clickHandler || this.changeRoute} className="progress btn btn-lg outline_contrast main_background flex_r_nowrap">
+                        <span>
+                            {this.props.children}
+                        </span>
+                </button>
+            </div>
         )        
     }
 

@@ -1,0 +1,5 @@
+div.app {
+    display: grid;
+    grid-template-rows: 50px 1fr 100px;
+    min-height: 100vh;
+}

@@ -23,16 +23,11 @@ export default class Confirm extends React.Component {
 
     render(){
         //If there's no message don't display the element
-        const validation_message = this.state.validation_message ? <p className="hint" ref={this.message}>{this.state.validation_message}</p> : "";
         let progress_message = "";
         if (this.props.email && this.props.terms_accepted) {
             progress_message = "CONFIRM";
-        } else if (!this.props.email && this.props.terms_accepted) {
-            progress_message = "PLEASE INSERT YOUR EMAIL";
-        } else if (this.props.email && !this.props.terms_accepted) {
-            progress_message = "PLEASE ACCEPT THE TERMS";
-        } else if (!this.props.email && !this.props.terms_accepted) {
-            progress_message = "PLEASE INSERT YOUR EMAIL AND ACCEPT THE TERMS";
+        } else if (!this.props.email || !this.props.terms_accepted) {
+            progress_message = "PLEASE COMPLETE";
         }
         const can_navigate = this.props.email && this.props.terms_accepted;
         
@@ -41,24 +36,26 @@ export default class Confirm extends React.Component {
                 <Headings title="Almost there!" text="Insert your email to be notified when your target is met"/>
 
                 <form action="/">
-                    <label htmlFor="email" className="email_label">
-                        <p>
-                            Your email:
-                        </p>
-                        <input type="email" name="email" id="email" placeholder="Insert your email" required ref={this.email} onInput={this.check_email}/>
-                    </label>
-                    {validation_message}
+                    <div className="confirm_holder">
+                        <label htmlFor="email" className="email_label">
+                            <h5>
+                                Your email:
+                            </h5>
+                            <input type="email" name="email" id="email" placeholder="Insert your email" required ref={this.email} onInput={this.check_email}/>
+                        </label>
+                        {this.state.validation_message}
 
-                    <label htmlFor="terms" className="terms_label flex_r_nowrap align_center">
-                        <span className="custom_checkbox_container">
-                            <input type="checkbox" name="terms" id="terms" onChange={this.props.change_handler}/>
-                            <span className="custom_checkbox">
-                                <img src={require("../images/interface_icons/tick.svg")} alt="checkbox_tick"/>
-                                
+                        <label htmlFor="terms" className="terms_label flex_r_nowrap align_center">
+                            <span className="custom_checkbox_container">
+                                <input type="checkbox" name="terms" id="terms" onChange={this.props.change_handler}/>
+                                <span className="custom_checkbox">
+                                    <img src={require("../images/interface_icons/tick.svg")} alt="checkbox_tick"/>
+                                    
+                                </span>
                             </span>
-                        </span>
-                        I read and understand the terms.
-                    </label>
+                            I read and understand the terms.
+                        </label>
+                    </div>
 
                    <ProgressButton 
                     next_section={this.props.next_section}
@@ -81,18 +78,18 @@ export default class Confirm extends React.Component {
             //Set appropriate messages based on the outcome
             if(!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(trimmed_value)) {
                 this.setState({
-                    validation_message: "Email is not valid"
+                    validation_message: <span className="hint red_alert">Email is not valid</span>
                 })
             //If it's valid and terms have been accepted
             } else if (this.props.terms_accepted) {
                 this.setState({
-                    validation_message: "Ready, set, go!"
+                    validation_message: <span className="hint ok">Ready, set, go!</span>
                 })
                 this.props.set_email(value);
             } else {
                 this.props.set_email(value);
                 this.setState({
-                    validation_message: "Email is valid"
+                    validation_message: <span className="hint ok">Email is valid!</span>
                 })
             }
         },300)

@@ -12,7 +12,7 @@ import DonePage from './done';
 export default class AppMain extends Component {
   render() {
     return (
-      <main className="spacer">
+      <main>
         <div className="container">
           <Route path="/"  exact render={props => <InitialCurrency {...this.props} next_section="/target" />}/>
           <Route path="/target"  exact render={props => <TargetCurrency {...this.props}  next_section="/percentage"/>} />

@@ -1,0 +1,11 @@
+@import "../variables";
+
+div.headings {
+    h1 {
+        margin: 0;
+    }
+    p.muted {
+        font-family: $title-fonts;
+        margin-top: -5px;
+    }
+}

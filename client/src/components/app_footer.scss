@@ -1,9 +1,8 @@
 @import "../variables";
 
 footer {
-    justify-self: flex-end;
-    flex: 1 1 auto;
-    margin-top: 20px;
+    justify-self: stretch;
+    align-self: stretch;
     padding: 10px;
     background: $main;
 

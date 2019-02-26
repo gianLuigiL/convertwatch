@@ -92,30 +92,34 @@ export default class PercentageTool extends React.Component{
     render(){
         return (
             <form action="/">
-                <div className="percentage_container p10 flex_r_wrap align_center justify_center">
-                    <div className="minus_handle" onClick={this.decrease_margin}>
-                        <button  type="button" className="btn outline_contrast flew_r_nowrap align_center justify_center">
-                            <img src={require("../images/interface_icons/minus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
-                        </button>
-                    </div>
-                    <div className="percentage_value flex_r_nowrap align_center justify_center">
-                        <span className="flex_r_nowrap align_center justify_center">
-                            {this.props.margin}
-                        </span>
-                    </div>
-                    <div className="plus_handle" onClick={this.increase_margin}>
-                        <button type="button" className="btn outline_contrast flew_r_nowrap align_center justify_center">
-                        <img src={require("../images/interface_icons/plus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
-                        </button></div>
-                    {this.state.hint}
+                <div className="margin_container">
+                    <div className="percentage_container p10 flex_r_wrap align_center justify_center">
+                        <div className="minus_handle" onClick={this.decrease_margin}>
+                            <button  type="button" className="btn outline_contrast flew_r_nowrap align_center justify_center">
+                                <img src={require("../images/interface_icons/minus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
+                            </button>
+                        </div>
+                        <div className="percentage_value flex_r_nowrap align_center justify_center">
+                            <span className="flex_r_nowrap align_center justify_center">
+                                {this.props.margin}
+                            </span>
+                        </div>
+                        <div className="plus_handle" onClick={this.increase_margin}>
+                            <button type="button" className="btn outline_contrast flew_r_nowrap align_center justify_center">
+                            <img src={require("../images/interface_icons/plus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
+                            </button></div>
+                        {this.state.hint}
 
+                    </div>
+                    <CurrentData 
+                        initial_currency={this.props.initial_currency}                
+                        target_currency={this.props.target_currency}                
+                        original_margin_value={this.props.original_margin_value}                
+                        margin_value={this.props.margin_value}                
+                    />                
                 </div>
-                <CurrentData 
-                    initial_currency={this.props.initial_currency}                
-                    target_currency={this.props.target_currency}                
-                    original_margin_value={this.props.original_margin_value}                
-                    margin_value={this.props.margin_value}                
-                />
+
+
                 <ProgressButton 
                     next_section={this.props.next_section}
                     can_navigate={this.props.can_navigate}

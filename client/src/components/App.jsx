@@ -8,6 +8,8 @@ import currencies_details from "../currencies/currencies_details";
 
 import { getRatios } from "../helper/converter_functions";
 
+import "./App.scss";
+
 //Array of symbols of the supported currencies
 const allowed_currencies = currencies_details.map(el => el.symbol);
 
@@ -78,35 +80,35 @@ class App extends React.Component {
 
   render(){
     return (
-      <>
+      <div className="app">
         <AppHeader />
-          <AppMain 
-            initial_currency={this.state.initial_currency}
-            target_currency={this.state.target_currency}
-            currencies={this.state.currencies} 
+        <AppMain 
+          initial_currency={this.state.initial_currency}
+          target_currency={this.state.target_currency}
+          currencies={this.state.currencies} 
 
-            set_initial_currency={this.set_initial_currency}
-            set_target_currency={this.set_target_currency}
+          set_initial_currency={this.set_initial_currency}
+          set_target_currency={this.set_target_currency}
 
-            increase_margin={this.increase_margin}
-            decrease_margin={this.decrease_margin}
-            margin={this.state.margin}
-            min_margin={this.state.min_margin}
-            max_margin={this.state.max_margin}
-            original_margin_value={this.state.original_margin_value}
-            margin_value={this.state.margin_value}
-            get_suggestion={this.get_suggestion}
+          increase_margin={this.increase_margin}
+          decrease_margin={this.decrease_margin}
+          margin={this.state.margin}
+          min_margin={this.state.min_margin}
+          max_margin={this.state.max_margin}
+          original_margin_value={this.state.original_margin_value}
+          margin_value={this.state.margin_value}
+          get_suggestion={this.get_suggestion}
 
-            accept_terms={this.accept_terms}
-            terms_accepted={this.state.terms_accepted}
+          accept_terms={this.accept_terms}
+          terms_accepted={this.state.terms_accepted}
 
-            email={this.state.email}
-            set_email={this.set_email}
+          email={this.state.email}
+          set_email={this.set_email}
 
-            submit_data={this.submit_data}
-          />
+          submit_data={this.submit_data}
+        />
         <AppFooter />
-      </>
+      </div>
     )
   }
 

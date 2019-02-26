@@ -1,1 +1,17 @@
 @import "../variables";
+
+main {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    justify-self: stretch;
+    align-self: stretch;
+
+    div.container {
+        display: grid;
+        grid-template-rows: 70px auto;
+        grid-template-columns: 1fr;
+        justify-self: stretch;
+        align-self: stretch;
+    }
+}

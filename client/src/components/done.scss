@@ -1,9 +1,11 @@
 @import "../variables";
 
 div.confirm {
-    .fb-share-button {
-    }
+
+
     h3 {
+        margin-bottom: 0;
+        font-family: $title_fonts;
         color: $main_navi;
     }
     p {
@@ -13,6 +15,39 @@ div.confirm {
     button {
         &:not(:last-of-type) {
             margin-bottom: 20px;
+        }
+    }
+
+    
+    .fb {
+        display: inline-block;
+        padding: 10px;
+        background: url("../images/interface_icons/fb.svg") 5px center no-repeat, #3B5998;
+        background-size: 25px;
+        padding-left: 35px;
+        margin-right: 20px;
+        border-radius: 5px;
+        font-family: $title_fonts;
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    .twitter {
+        display: inline-block;
+        padding: 10px;
+        background: url("../images/interface_icons/twitter.svg") 5px center no-repeat, #38A1F3;
+        background-size: 25px;
+        padding-left: 35px;
+        margin-right: 20px;
+        border-radius: 5px;
+        font-family: $title_fonts;
+
+        a {
+            color: white;
+            text-decoration: none;
         }
     }
 }

@@ -45,7 +45,10 @@ class CurrencySelect extends React.Component {
         )
         return (
             <form action="">
-                {labels}
+                <div className="labels">
+                    {labels}
+                </div>
+                {this.props.children}
                 <ProgressButton 
                     next_section={this.props.next_section} 
                     can_navigate={this.props.can_navigate}>{this.props.message}</ProgressButton>
