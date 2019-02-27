@@ -91,7 +91,6 @@ export default class PercentageTool extends React.Component{
 
     render(){
         return (
-            <form action="/">
                 <div className="margin_container">
                     <div className="percentage_container p10 flex_r_wrap align_center justify_center">
                         <div className="minus_handle" onClick={this.decrease_margin}>
@@ -118,14 +117,6 @@ export default class PercentageTool extends React.Component{
                         margin_value={this.props.margin_value}                
                     />                
                 </div>
-
-
-                <ProgressButton 
-                    next_section={this.props.next_section}
-                    can_navigate={this.props.can_navigate}
-
-                    >{this.props.can_navigate ? "NEXT" : "PLEASE SELECT A VALID VALUE"}</ProgressButton>
-            </form>
         )
     }
 }

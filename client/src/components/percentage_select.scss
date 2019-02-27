@@ -1,0 +1,7 @@
+@import "../variables";
+
+form.percentage_select {
+    display: grid;
+    grid-template-rows: auto 80px;
+    grid-auto-rows: auto;
+}

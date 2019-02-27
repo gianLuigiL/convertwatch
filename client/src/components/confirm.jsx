@@ -1,7 +1,6 @@
 import React from 'react';
 import "./confirm.scss";
 
-import Headings from './headings';
 import ProgressButton from "./progress_button";
 
 export default class Confirm extends React.Component {
@@ -22,20 +21,8 @@ export default class Confirm extends React.Component {
     }
 
     render(){
-        //If there's no message don't display the element
-        let progress_message = "";
-        if (this.props.email && this.props.terms_accepted) {
-            progress_message = "CONFIRM";
-        } else if (!this.props.email || !this.props.terms_accepted) {
-            progress_message = "PLEASE COMPLETE";
-        }
-        const can_navigate = this.props.email && this.props.terms_accepted;
-        
         return (
             <>
-                <Headings title="Almost there!" text="Insert your email to be notified when your target is met"/>
-
-                <form action="/">
                     <div className="confirm_holder">
                         <label htmlFor="email" className="email_label">
                             <h5>
@@ -56,12 +43,6 @@ export default class Confirm extends React.Component {
                             I read and understand the terms.
                         </label>
                     </div>
-
-                   <ProgressButton 
-                    next_section={this.props.next_section}
-                    can_navigate={can_navigate}
-                    >{progress_message}</ProgressButton>
-                </form>
             </>
         )
     }
