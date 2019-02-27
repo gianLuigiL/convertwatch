@@ -44,7 +44,7 @@ class CurrencySelect extends React.Component {
             }
         )
         return (
-            <form action="" class="currency_select">
+            <form action="" className="currency_select">
                 <div className="labels">
                     {labels}
                 </div>

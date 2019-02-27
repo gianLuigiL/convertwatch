@@ -35,7 +35,8 @@ class App extends React.Component {
       margin_value: 1,
       email: null,
       is_valid_email: false,
-      terms_accepted: false
+      terms_accepted: false,
+      initial_state: null
     }
 
     this.set_initial_currency = this.set_initial_currency.bind(this);
@@ -48,6 +49,11 @@ class App extends React.Component {
   }
 
   componentDidMount(){
+    this.setState({
+      //Make a backup of the blank state to reset it later
+      initial_state: {...this.state}
+    })
+
     //Redirect if the page has been loaded to a valid address but without required data
     if(!this.state.initial_currency) {
       this.props.history.push("/")

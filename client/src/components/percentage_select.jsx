@@ -9,7 +9,7 @@ export default function PercentageSelect(props) {
     return (
         <>
             <Headings title="Margin" text="Select the target percentage you want to reach."/>
-            <form action="/" class="percentage_select">
+            <form action="/" className="percentage_select">
                 <div>
                     <PercentageTool 
                         initial_currency={props.initial_currency}
