@@ -5,8 +5,8 @@ form {
         font-family: $title_fonts;
 
         h5 {
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 0px;
+            margin-bottom: 5px;
             font-family: $title_fonts;
             color: $main_navi;
         }
@@ -21,10 +21,6 @@ form {
             transition: all  0.5s;
             margin-bottom: 10px;
 
-            &:focus {
-                box-shadow: 0px 0px 0px transparent;
-            }
-
             @media screen and (max-width: 400px) {
                 width: 100%;
             }
@@ -35,6 +31,7 @@ form {
         margin-top: 20px;
         font-weight: 600;
         cursor: pointer;
+
     }
 
     span.hint {
@@ -59,6 +56,5 @@ form {
         &::first-letter {
             margin-left: 25px;
         }     
-        
     }
 }

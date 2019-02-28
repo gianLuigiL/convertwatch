@@ -3,7 +3,7 @@ import "./app_footer.scss"
 
 export default function AppFooter() {
   return (
-    <footer className="flex_r_wrap justify_center">
+    <footer className="app_footer flex_r_wrap justify_center">
       <div className="social">
         
       </div>

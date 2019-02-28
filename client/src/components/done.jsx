@@ -8,8 +8,8 @@ export default function DonePage(props) {
     return (
         <>
             <Headings title="Hooray!" text="**fireworks cracking in the background**"/>
-            <form action="/">  
-                <div className="confirm">
+            <form action="/" className="done">  
+                <div className="done">
                     <h3>You're all set! What now?</h3>
                     <p>You can start again with the button below or Convertwatch will send you an email if you reach your target within 6 months (and delete your entry), or will send you an email 
                     on the expiration date to let you know that your entry will be removed. Convertwatch has no purpose in retaining 

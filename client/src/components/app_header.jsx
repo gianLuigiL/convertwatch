@@ -17,7 +17,7 @@ export default function AppHeader(props) {
             </div>
             <div className="spacer"></div>
             <div className="flex_r_nowrap align-center">
-                <button className="outline_navi btn">
+                <button className="outline_contrast btn">
                     ABOUT
                 </button>
             </div>

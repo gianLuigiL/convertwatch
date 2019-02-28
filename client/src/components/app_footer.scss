@@ -3,8 +3,10 @@
 footer {
     justify-self: stretch;
     align-self: stretch;
+    background: $main_contrast;
     padding: 10px;
-    background: $main;
+    font-family: $body_fonts;
+    color: black;
 
     div {
         &.social {

@@ -1,11 +1,11 @@
 @font-face {
-  font-family: 'Lora';
-  src: url('./fonts/Lora-Regular.ttf')  format('truetype');
+  font-family: 'Karla';
+  src: url('./fonts/Karla-Regular.ttf')  format('truetype');
 }
 
 @font-face {
-  font-family: 'Montserrat';
-  src: url('./fonts/Montserrat-Regular.ttf')  format('truetype');
+  font-family: 'Quicksand';
+  src: url('./fonts/Quicksand-Medium.ttf')  format('truetype');
 }
 
 @import "./variables";
@@ -27,7 +27,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-weight: $body_weight;
   min-height: 100vh;
-  background-color: rgb(253, 251, 251);
+  background: linear-gradient(to bottom, white 40%, lighten($main, 50%));
 }
 
 div#root {
@@ -47,42 +47,52 @@ p {
 .container {
   padding: 10px;
 }
-
-span.custom_checkbox_container {
-  display: inline-block;
-  overflow: hidden;
-  height: 20px;
-
-  input {
-      display: none;
-
-      &:checked + span.custom_checkbox {
-          background-color: $main;
-          border: 1px solid $main_contrast;
-
-          img {
-              width: 15px;
-              height: 15px;
-          }
+label {
+  &:hover {
+    span.custom_checkbox_container {
+      span.custom_checkbox {
+        background: rgba(0,0,0,0.1)
       }
+    }
   }
-  span.custom_checkbox {
-    position: relative;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 1px solid $main;
-    background: rgba(0,0,0,0.05);
-    transition: all 0.4s;
-    margin-right: 10px;
 
-    img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 0px;
-        transition: all 0.4s;
+  span.custom_checkbox_container {
+    display: inline-block;
+    overflow: hidden;
+    height: 20px;
+  
+    input {
+        display: none;
+  
+        &:checked + span.custom_checkbox {
+            background-color: $main;
+            border: 1px solid $main_contrast;
+  
+            img {
+                width: 15px;
+                height: 15px;
+            }
+        }
+    }
+    span.custom_checkbox {
+      position: relative;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 1px solid $main;
+      background: rgba(0,0,0,0.05);
+      transition: all 0.4s;
+      margin-right: 10px;
+  
+      img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          filter: brightness(5);
+          width: 0px;
+          transition: all 0.4s;
+      }
     }
   }
 }

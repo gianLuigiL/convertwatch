@@ -100,7 +100,9 @@ export default class PercentageTool extends React.Component{
                         </div>
                         <div className="percentage_value flex_r_nowrap align_center justify_center">
                             <span className="flex_r_nowrap align_center justify_center">
-                                {this.props.margin}
+                                <span className="margin">
+                                    {this.props.margin}<span className="percentage_sign">%</span>
+                                </span>
                             </span>
                         </div>
                         <div className="plus_handle" onClick={this.increase_margin}>
