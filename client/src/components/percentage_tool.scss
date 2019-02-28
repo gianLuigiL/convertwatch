@@ -13,10 +13,13 @@ div.percentage_container {
             position: relative;
             height: 40px;
             width: 40px;
+            background: transparent;
+            border: none;
             border-radius: 50%;
             overflow: hidden;
             font-weight: 800;
             font-size: 1.2em;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
             cursor: pointer;
 
             &:active {
@@ -36,23 +39,28 @@ div.percentage_container {
 
             &::after {
                 position: absolute;
+                top: 50%;
+                left: 50%;
                 height: 0px;
                 width: 0px;
                 content: "";
+                transform: translate(-50%, -50%);
                 border-radius: 50%;
-                z-index: 1;
+                background: $main;
+                z-index: -1;
                 transition: height 0.4s, width 0.4s;
             }
             //Size of the plus and minus
             img {
+                margin-top: 6px;
                 max-width: 70%;
-                z-index: 2;
+                z-index: 3;
             }
         }
     }
 
     div.percentage_value {
-        margin: 0 20px;
+        margin: 0 30px;
         width: 120px;
         height: 120px;
         font-size: 2em;

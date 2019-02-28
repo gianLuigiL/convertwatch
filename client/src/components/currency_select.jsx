@@ -35,7 +35,6 @@ class CurrencySelect extends React.Component {
                             {<img src={image} alt={el.name + " currency symbol"}/>}
                         </span>
                         <span className="currency_symbol">{el.symbol}</span> 
-                        &nbsp;&bull;&nbsp;
                         <span className="currency_name">{el.name}</span>
                     </span>
 

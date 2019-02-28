@@ -10,7 +10,7 @@ export default function AppHeader(props) {
                     <span className="image">
                         <img src="./assets/images/goggles.svg" alt="Logo"/>
                     </span>
-                    <span className="app_name">
+                    <span className="app_name flex_r_nowrap align_center">
                         <span>ConvertWatch</span>
                     </span>            
                 </NavLink>

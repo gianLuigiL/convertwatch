@@ -29,9 +29,10 @@ header {
                 }
             }
             span.app_name {
-                font-size: 1.5rem;
-                font-weight: $title_weight;
                 color: white;
+                font-size: 1.2rem;
+                font-weight: $title_weight;
+                line-height: 0px;
             }
         }
     }

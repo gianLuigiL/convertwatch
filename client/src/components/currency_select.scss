@@ -30,21 +30,9 @@ div.labels {
                     box-shadow: 0px 0px 0px 0px transparent;
                     transition: 0.6s all;
     
-                    &::after {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        background: $main_navi;
-                        border-radius: 5px;
-                        content: "";
-                        top: 5px;
-                        left: 5px;
-                        z-index: -1;
-                        filter: blur(0px);
-                    }
 
                     span.currency_symbol {
-                        color: black;
+                        color: white;
                     }
 
                     span.currency_name {
@@ -58,26 +46,15 @@ div.labels {
                 width: 100%;
                 padding: 8px;
                 border-radius: 5px;
-                background: linear-gradient(to left, $main, $main_navi);
-                box-shadow: 0px 4px 15px rgba(0,0,0,0.3), 0px 0px 2px rgba(0,0,0,0.3), 0px -5px 15px rgba(19, 12, 2, 0.2);
+                background: transparent;
+                box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
                 transition: all 0.5s;
     
-                &::after {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    background: $main_navi;
-                    content: "";
-                    top: 5px;
-                    left: 5px;
-                    z-index: -1;
-                    filter: blur(5px);
-                    transition: 0.5s all;
-                }
+
     
                 span.currency_image {
                     position: relative;
-                    width: 50px;
+                    width: 40px;
     
                     img {
                         position: absolute;
@@ -92,9 +69,10 @@ div.labels {
                 span.currency_symbol {
                     width: 40px;
                     font-family: $title_fonts;
-                    color: $layout_contrast;
+                    color: $main_navi;
                     font-weight: 800;
                     font-size: 130%;
+                    margin-right: 20px;
                 }
 
                 span.currency_name {

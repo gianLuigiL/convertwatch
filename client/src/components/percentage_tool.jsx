@@ -94,7 +94,7 @@ export default class PercentageTool extends React.Component{
                 <div className="margin_container">
                     <div className="percentage_container p10 flex_r_wrap align_center justify_center">
                         <div className="minus_handle" onClick={this.decrease_margin}>
-                            <button  type="button" className="btn outline_contrast flew_r_nowrap align_center justify_center">
+                            <button  type="button" className="flew_r_nowrap align_center justify_center">
                                 <img src={require("../images/interface_icons/minus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
                             </button>
                         </div>
@@ -106,7 +106,7 @@ export default class PercentageTool extends React.Component{
                             </span>
                         </div>
                         <div className="plus_handle" onClick={this.increase_margin}>
-                            <button type="button" className="btn outline_contrast flew_r_nowrap align_center justify_center">
+                            <button type="button" className="flew_r_nowrap align_center justify_center">
                             <img src={require("../images/interface_icons/plus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
                             </button></div>
                         {this.state.hint}
