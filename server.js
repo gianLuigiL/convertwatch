@@ -4,6 +4,7 @@ const path = require("path");
 const body_parser = require("body-parser");
 const {MongoClient} = require("mongodb");
 const { database } = require("./config/db_connect");
+const nodemailer = require("nodemailer");
 const fetch = require("node-fetch");
 const currencies_details = require( "./client/src/currencies/currencies_details");
 const allowed_currencies = currencies_details.map(el => el.symbol);
@@ -12,6 +13,10 @@ const { processHistoricalRatios } = require("./helper/server_converter_functions
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+const date_functions = require("./helper/date_functions");
+
+const { send_expired, send_target_reached, send_crash_alert, send_problem_notification  } = require("./helper/tasks/send_email");
 
 app.use(compression());
 app.use(body_parser.json());
@@ -25,6 +30,7 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
     //If there's an error don't launch the app
     if(err) {
         console.log("Unable to connect to MongoDB database");
+        send_problem_notification("ConvertWatch was unable to connect to MongoDB, pelase check.")
         return;
     }
 
@@ -34,21 +40,15 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
 
     //Historical data only got back up to six months ago, here constructs the necessary strings
     //A library is not worth for 6 lines
-    const today_date = new Date();
-    const today = today_date.getTime(); //Today in milliseconds
-    const six_months = 1000 * 60 * 60 * 24 * 30 * 6; //Six month in milliseconds (rounded to 30 days per month)
-    const six_months_ago = today - six_months;
-    const six_months_ago_date = new Date(six_months_ago);
-
-    const today_string = `${today_date.getFullYear()}-${ (today_date.getMonth() + 1).toString().padStart(2, "0") }-${today_date.getDate().toString().padStart(2, "0")}`
-    const six_months_ago_string = `${six_months_ago_date.getFullYear()}-${ (six_months_ago_date.getMonth() + 1).toString().padStart(2, "0") }-${six_months_ago_date.getDate().toString().padStart(2, "0")}`
+    const today_string = date_functions.get_today_string;
+    const six_months_ago_string = date_functions.get_six_months_ago_string;
     //Get the historical data
     fetch(`https://api.exchangeratesapi.io/history?start_at=${six_months_ago_string}&end_at=${today_string}`)
     .then(json_data => json_data.json())
     .then(eur_based_historical_rates => {
         //Returns an array of objects { date: YYYY-MM-DD, ratios: {...rates_of_the_day} }
         const historical_rates = processHistoricalRatios(eur_based_historical_rates)
-        //Delete evry previous historical entry
+        //Delete every previous historical entry
         db.collection("historical_rates").deleteMany({})
 
         //Upon success recreate the table
@@ -63,17 +63,20 @@ MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
             })
             .catch(err => {
                 console.log(err, "Failed to insert new historical rates")
+                send_problem_notification("Failed to insert historical data at Convertwatch");
             })
         })
         .catch(err => {
             console.log(err);
             console.log("Failed to remove old historical data");
+            send_problem_notification("Failed to remove old historical data at Convertwatch");
         })
     //This catches errors in the exchange API request
-    }).catch(err => console.log(err));
-})
-
-//GET requests
+    }).catch(err => {
+        console.log(err);
+        send_problem_notification("There has been an error at ConvertWatch" + JSON.stringify(err, null, 2));
+    });
+});
 
 app.get(/.*/, (req, res) => {
     res.redirect("/") 
@@ -106,6 +109,7 @@ app.post("/add_entry", (req, res) => {
             .then(response => res.status(200).send())
         } catch (error) {
             res.status(500).send("Could not insert the entry.");
+            send_problem_notification("An error 500 while trying to insert an entry has happened")
         }
     } else {
         res.status(403).send("The submitted data does not conform.")
@@ -127,6 +131,7 @@ app.post("/get_suggestion", (req, res)=>{
             .toArray((err, data)=>{
                 if(err) {
                     console.log("Unable to retrieve any data");
+                    send_problem_notification("There has been a problem in the retrieval of suggestions in the toArray callback.");
                     return
                 }
                 if(data.length){
@@ -138,6 +143,7 @@ app.post("/get_suggestion", (req, res)=>{
             })
         } catch (error) {
             console.log(error)
+            send_problem_notification("An error has occured while trying to retrieve suggestions in the returned promise.")
             res.status(500).send("Could not retrieve suggestion.");
         }
 
@@ -145,4 +151,5 @@ app.post("/get_suggestion", (req, res)=>{
         console.log(req.body)
         res.status(403).send("The submitted data does not conform to the suggestion scheme.")
     }
-})
+});
+
