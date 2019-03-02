@@ -27,7 +27,6 @@ export default function DonePage(props) {
                         <ProgressButton 
                 next_section={"/"} 
                 can_navigate={true} 
-                clickHandler={props.submit_data}
                 >START AGAIN</ProgressButton>
             </form>
         </>

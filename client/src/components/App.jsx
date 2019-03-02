@@ -182,7 +182,9 @@ class App extends React.Component {
     })
   }
 
-  submit_data(){
+  submit_data(e){
+    e.preventDefault();
+
     const {initial_currency, target_currency, margin_value, email } = this.state;
     const body = JSON.stringify({initial_currency, target_currency, margin_value, email});
     fetch("/add_entry",{
@@ -195,7 +197,10 @@ class App extends React.Component {
       body
     })
     .then(res => res.text())
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res);
+      this.props.history.push("/done");
+    })
     .catch(err => {
       alert("something went wrong, the page will now reload");
       this.props.history.push("/")

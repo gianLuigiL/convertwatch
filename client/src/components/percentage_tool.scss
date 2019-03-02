@@ -91,15 +91,15 @@ div.percentage_container {
             background-size: 20px 20px;
     
             &.ok {
-                background-image: url("../images/interface_icons/ok.svg");
+                background-image: url("../assets/images/interface_icons/ok.svg");
             }
     
             &.alert {
-                background-image: url("../images/interface_icons/alert.svg");
+                background-image: url("../assets/images/interface_icons/alert.svg");
             }
     
             &.red_alert {
-                background-image: url("../images/interface_icons/red_alert.svg");
+                background-image: url("../assets/images/interface_icons/red_alert.svg");
             }
     
             &::first-letter {

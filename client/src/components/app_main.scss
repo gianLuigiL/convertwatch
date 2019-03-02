@@ -6,6 +6,15 @@ main {
     grid-template-columns: 1fr;
     justify-self: stretch;
     align-self: stretch;
+    max-width: 900px;
+    
+    @media screen and (min-width: 750px) {
+        min-width: 750px;
+        margin: 0 auto;
+    }
+    @media screen and (min-width: 750px) {
+        min-width: 750px;
+    }
 
     div.container {
         display: grid;

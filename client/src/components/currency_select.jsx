@@ -17,8 +17,9 @@ class CurrencySelect extends React.Component {
         //currencies is an array of objs like [{name: "US Dollar", symbol: "USD"}]
         const labels = this.props.currencies.map( el => {
 
-            const image = require("../images/currency_icons/" + el.symbol.toLowerCase() + ".svg");
+            const image = require("../assets/images/currency_icons/" + el.symbol.toLowerCase() + ".svg");
             const is_checked = this.props.preselected_choice === el.symbol ? "checked" : "";
+
 
             if (el.symbol === this.props.invalid_choice) return "";
             return (
@@ -32,7 +33,7 @@ class CurrencySelect extends React.Component {
                             />
                     <span className="align_center">
                         <span className="currency_image">
-                            {<img src={image} alt={el.name + " currency symbol"}/>}
+                            <img src={image} alt={el.name + " currency symbol"}/>
                         </span>
                         <span className="currency_symbol">{el.symbol}</span> 
                         <span className="currency_name">{el.name}</span>

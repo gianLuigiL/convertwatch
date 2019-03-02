@@ -27,7 +27,7 @@ export default function PercentageSelect(props) {
                     <Confirm change_handler={props.accept_terms} {...props}/>
                 </div>
                 <ProgressButton 
-                        next_section={props.next_section}
+                        clickHandler={props.submit_data}
                         can_navigate={props.margin > 0 && props.email && props.terms_accepted}
                 >{props.margin > 0 && props.email && props.terms_accepted ? "CONFIRM" : "PLEASE COMPLETE"}</ProgressButton>
             </form>

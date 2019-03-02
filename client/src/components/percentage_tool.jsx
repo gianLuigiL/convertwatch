@@ -1,7 +1,8 @@
 import React from 'react'
 import "./percentage_tool.scss";
-import ProgressButton from './progress_button';
 import CurrentData from './current_data';
+const plus = require("../assets/images/interface_icons/plus.svg")
+const minus = require("../assets/images/interface_icons/minus.svg")
 
 let timer;
 
@@ -95,7 +96,7 @@ export default class PercentageTool extends React.Component{
                     <div className="percentage_container p10 flex_r_wrap align_center justify_center">
                         <div className="minus_handle" onClick={this.decrease_margin}>
                             <button  type="button" className="flew_r_nowrap align_center justify_center">
-                                <img src={require("../images/interface_icons/minus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
+                                <img src={minus} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
                             </button>
                         </div>
                         <div className="percentage_value flex_r_nowrap align_center justify_center">
@@ -107,7 +108,7 @@ export default class PercentageTool extends React.Component{
                         </div>
                         <div className="plus_handle" onClick={this.increase_margin}>
                             <button type="button" className="flew_r_nowrap align_center justify_center">
-                            <img src={require("../images/interface_icons/plus.svg")} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
+                            <img src={plus} alt="Plus" arial-label="subtract" aria-labelledby="subtract"/>
                             </button></div>
                         {this.state.hint}
 
