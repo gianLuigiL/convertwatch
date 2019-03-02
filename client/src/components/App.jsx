@@ -46,13 +46,10 @@ class App extends React.Component {
     this.accept_terms = this.accept_terms.bind(this);
     this.set_email = this.set_email.bind(this);
     this.submit_data = this.submit_data.bind(this);
+    this.reset_state = this.reset_state.bind(this);
   }
 
   componentDidMount(){
-    this.setState({
-      //Make a backup of the blank state to reset it later
-      initial_state: {...this.state}
-    })
 
     //Redirect if the page has been loaded to a valid address but without required data
     if(!this.state.initial_currency) {
@@ -68,6 +65,11 @@ class App extends React.Component {
         currencies: currencies_details,
         currency_rates: getRatios(eur_based_ratios)
       });
+
+      this.setState({
+        //Make a backup of the blank state to reset it later
+        initial_state: {...this.state}
+      })
     }).catch(err => {
       //Retry to retrieve results or alert the user
       getCurrencies()
@@ -112,6 +114,7 @@ class App extends React.Component {
           set_email={this.set_email}
 
           submit_data={this.submit_data}
+          reset_state={this.reset_state}
         />
         <AppFooter />
       </div>
@@ -205,6 +208,14 @@ class App extends React.Component {
       alert("something went wrong, the page will now reload");
       this.props.history.push("/")
     })
+  }
+
+  reset_state(){
+    if(this.state.initial_state) {
+      this.setState(
+        {...this.state.initial_state}
+      )
+    }
   }
 }
 

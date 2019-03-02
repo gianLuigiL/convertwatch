@@ -11,7 +11,11 @@ class ProgressButton extends React.Component{
 
     changeRoute(e){
         e.preventDefault();
-        if(this.props.can_navigate){            
+        if(this.props.can_navigate){
+            if(this.props.next_section === "/") {
+                this.props.reset_state();
+                this.props.history.push(this.props.next_section)
+            }            
             this.props.history.push(this.props.next_section)
         }
     }

@@ -54,7 +54,7 @@ const send_crash_alert = () => {
 }
 
 const send_problem_notification = (description) => {
-    return send_emails([{email: "hello@convertwatch.com"}], "There was a problem at ConvertWatch", description);
+    return send_emails([{email: "hello@convertwatch.com"}], "There was a problem at ConvertWatch", description)[0];
 }
 
 module.exports = {

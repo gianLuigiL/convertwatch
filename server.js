@@ -2,21 +2,17 @@ const express = require("express");
 const compression = require("compression");
 const path = require("path");
 const body_parser = require("body-parser");
-const {MongoClient} = require("mongodb");
-const { database } = require("./config/db_connect");
-const nodemailer = require("nodemailer");
-const fetch = require("node-fetch");
+const { connect } = require("./config/db_connect");
 const currencies_details = require( "./client/src/currencies/currencies_details");
 const allowed_currencies = currencies_details.map(el => el.symbol);
 
-const { processHistoricalRatios } = require("./helper/server_converter_functions");
+const { refresh_historical_data, create_latest } = require("./helper/tasks/historical_rates_crud");
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-const date_functions = require("./helper/date_functions");
 
-const { send_expired, send_target_reached, send_crash_alert, send_problem_notification  } = require("./helper/tasks/send_email");
+const { send_problem_notification  } = require("./helper/tasks/send_email");
 
 app.use(compression());
 app.use(body_parser.json());
@@ -24,67 +20,25 @@ app.use(body_parser.urlencoded({extended: true}));
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-let db;
+//Before starting the app make sure the data in historical rates are updated
+refresh_historical_data()
+.then(success => {
+    //Upon success start the app
+    app.listen(port, () => console.log(`Listening on port ${port}`));
+})
+.catch(err => {
+    console.log("Failed to refresh historical data");
+    send_problem_notification("Failed to refresh historical data" + JSON.parse(err, null, 2));
+})
 
-MongoClient.connect(database,{useNewUrlParser: true} ,(err, client) => {
-    //If there's an error don't launch the app
-    if(err) {
-        console.log("Unable to connect to MongoDB database");
-        send_problem_notification("ConvertWatch was unable to connect to MongoDB, pelase check.")
-        return;
-    }
-
-    console.log("Connected to MongoDB database");
-    //Bring the database outside
-    db = client.db(process.env.PORT ? "heroku_tld6rz1j" : "Convertwatch");
-
-    //Historical data only got back up to six months ago, here constructs the necessary strings
-    //A library is not worth for 6 lines
-    const today_string = date_functions.get_today_string;
-    const six_months_ago_string = date_functions.get_six_months_ago_string;
-    //Get the historical data
-    fetch(`https://api.exchangeratesapi.io/history?start_at=${six_months_ago_string}&end_at=${today_string}`)
-    .then(json_data => json_data.json())
-    .then(eur_based_historical_rates => {
-        //Returns an array of objects { date: YYYY-MM-DD, ratios: {...rates_of_the_day} }
-        const historical_rates = processHistoricalRatios(eur_based_historical_rates)
-        //Delete every previous historical entry
-        db.collection("historical_rates").deleteMany({})
-
-        //Upon success recreate the table
-        .then(success => {
-            console.log("Removed old historical rates");
-            db.collection("historical_rates").insertMany(historical_rates)
-
-            //On succes of this operation launch the app
-            .then(success => {
-                console.log("Inserted updated historical rates");
-                app.listen(port, () => console.log(`Listening on port ${port}`));
-            })
-            .catch(err => {
-                console.log(err, "Failed to insert new historical rates")
-                send_problem_notification("Failed to insert historical data at Convertwatch");
-            })
-        })
-        .catch(err => {
-            console.log(err);
-            console.log("Failed to remove old historical data");
-            send_problem_notification("Failed to remove old historical data at Convertwatch");
-        })
-    //This catches errors in the exchange API request
-    }).catch(err => {
-        console.log(err);
-        send_problem_notification("There has been an error at ConvertWatch" + JSON.stringify(err, null, 2));
-    });
-});
 
 app.get(/.*/, (req, res) => {
     res.redirect("/") 
 }) 
 
-// The "catchall" handler: for any request that doesn't
+// The "catch all" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
@@ -93,7 +47,7 @@ app.get('*', (req, res) => {
 /**
  * Used to add an entry evry time a user want to watch a currency
  */
-app.post("/add_entry", (req, res) => {
+app.post("/add_entry", async (req, res) => {
     //Test if both the initial and target currencies are allowed
     const valid_currencies = [req.body.initial_currency, req.body.target_currency].every(el => allowed_currencies.includes(el));
     //Test if margin is fit
@@ -105,6 +59,7 @@ app.post("/add_entry", (req, res) => {
         const { initial_currency, target_currency, margin_value, email } = req.body;
         const entry = { initial_currency, target_currency, margin_value, email };
         try {
+            const db = await connect();
             db.collection("entries").insertOne(entry)
             .then(response => res.status(200).send())
         } catch (error) {
@@ -117,7 +72,7 @@ app.post("/add_entry", (req, res) => {
 });
 
 
-app.post("/get_suggestion", (req, res)=>{
+app.post("/get_suggestion", async (req, res)=>{
     //Test if both the initial and target currencies are allowed
     const valid_currencies = [req.body.initial_currency, req.body.target_currency].every(el => allowed_currencies.includes(el));
     //Test if margin is fit
@@ -127,20 +82,22 @@ app.post("/get_suggestion", (req, res)=>{
         const { initial_currency, target_currency } = req.body;
 
         try {
+            const db = await connect();
             db.collection("historical_rates").find( { [`ratios.${initial_currency}.${target_currency}`]: { $gte : valid_margin } } )
-            .toArray((err, data)=>{
-                if(err) {
-                    console.log("Unable to retrieve any data");
-                    send_problem_notification("There has been a problem in the retrieval of suggestions in the toArray callback.");
-                    return
-                }
+            .toArray()
+            .then(data => {
                 if(data.length){
                     const most_recent = data.sort( (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime() )[0];
                     res.send({result: most_recent});
                 } else {
                     res.send({result: {}});
-                }
+                }            
             })
+            .catch(err => {
+                console.log("Unable to retrieve any data");
+                send_problem_notification("There has been a problem in the retrieval of suggestions in the toArray callback.");
+                return
+            });
         } catch (error) {
             console.log(error)
             send_problem_notification("An error has occured while trying to retrieve suggestions in the returned promise.")
