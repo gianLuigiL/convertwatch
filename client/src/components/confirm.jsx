@@ -6,7 +6,8 @@ export default class Confirm extends React.Component {
         super(props);
 
         this.state = {
-            validation_message: ""
+            validation_message: "",
+            validation_classes: "hint bound"
         }
 
         //Holds timing offset for checking the email validation
@@ -28,7 +29,7 @@ export default class Confirm extends React.Component {
                         </h5>
                         <input type="email" name="email" id="email" placeholder="Insert your email" required ref={this.email} onInput={this.check_email}/>
                     </label>
-                    {this.state.validation_message}
+                    <span className={this.state.validation_classes}>{this.state.validation_message}</span>
 
                     <label htmlFor="terms" className="terms_label flex_r_nowrap align_center">
                         <span className="custom_checkbox_container">
@@ -54,23 +55,26 @@ export default class Confirm extends React.Component {
         const trimmed_value = value.trim();
         //Set a reference to the timer
         this.timer = setTimeout(()=>{
+            let validation_message = "";
+            let validation_classes = "";
             //Set appropriate messages based on the outcome
             if(!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(trimmed_value)) {
-                this.setState({
-                    validation_message: <span className="hint red_alert">Email is not valid</span>
-                })
+                validation_message = "Email is not valid";
+                validation_classes = "hint red_alert"
             //If it's valid and terms have been accepted
             } else if (this.props.terms_accepted) {
-                this.setState({
-                    validation_message: <span className="hint ok">Ready, set, go!</span>
-                })
-                this.props.set_email(value);
+                validation_message = "Ready, set, go!";
+                validation_classes = "hint ok"
+                this.props.set_email(trimmed_value);
             } else {
-                this.props.set_email(value);
-                this.setState({
-                    validation_message: <span className="hint ok">Email is valid!</span>
-                })
+                validation_message = "Email is valid!!";
+                validation_classes = "hint ok"
+                this.props.set_email(trimmed_value);
             }
+            this.setState({
+                validation_message,
+                validation_classes
+            })
         },300)
         
     }

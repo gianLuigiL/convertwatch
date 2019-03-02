@@ -12,6 +12,8 @@ export default class PercentageTool extends React.Component{
 
         this.state = {
             hint: "",
+            hint_message: "",
+            hint_classes: "hint bound"
         }
     }
 
@@ -21,7 +23,7 @@ export default class PercentageTool extends React.Component{
         if(timer) {
             clearTimeout(timer);
         }
-        timer = setTimeout(this.get_suggestion, 800)
+        timer = setTimeout(this.get_suggestion, 500)
     }
 
     decrease_margin = () => {
@@ -30,14 +32,13 @@ export default class PercentageTool extends React.Component{
         if(timer) {
             clearTimeout(timer);
         }
-        timer = setTimeout(this.get_suggestion, 800)
+        timer = setTimeout(this.get_suggestion, 500)
     }
 
     str_to_time = (str) => {
         const time =  new Date(str).getTime();
         if (!time) {
-            alert("something went wrong while conversion check console");
-            console.log(str);
+            alert("something went wrong while creating time check console");
         } else {
             return time;
         }
@@ -52,17 +53,35 @@ export default class PercentageTool extends React.Component{
         const one_month = one_day * 30;
         
         if (!result.date) {
-            return <p className="hint red_alert">The target hasn't been reached in six months, it's better to aim a little lower.</p>
+            this.setState({
+                hint_message: "The target hasn't been reached in six months, it's better to aim a little lower.",
+                hint_classes: "hint red_alert"
+            })
         } else if ( this.str_to_time(result.date) > (this.now() - one_week)){
-            return <p className="hint ok">The target has been reached less than a week ago, you can aim a little higher.</p>
+            this.setState({
+                hint_message: "The target has been reached less than a week ago, you can aim a little higher.",
+                hint_classes: "hint ok"
+            })
         } else if ( this.str_to_time(result.date) > (this.now() - one_week * 2 )){
-            return <p className="hint ok">The target has been reached less than two weeks ago, good enough if you're on a rush.</p>
+            this.setState({
+                hint_message: "The target has been reached less than two weeks ago, good enough if you're on a rush.",
+                hint_classes: "hint ok"
+            })
         } else if ( this.str_to_time(result.date) > (this.now() - one_month )){
-            return <p className="hint ok">The target has been reached in the last 30 days.</p>
+            this.setState({
+                hint_message: "The target has been reached in the last 30 days.",
+                hint_classes: "hint ok"
+            })
         } else if ( this.str_to_time(result.date) > (this.now() - one_month * 2 )){
-            return <p className="hint ok">The target has been reached in the last two months.</p>
+            this.setState({
+                hint_message: "The target has been reached in the last two months.",
+                hint_classes: "hint ok"
+            })
         } else {
-            return <p className="hint alert">The target has been reached the {result_date.getDate()}/{result_date.getMonth() + 1}/{result_date.getFullYear()}.</p>
+            this.setState({
+                hint_message: `The target has been reached the ${result_date.getDate()}/${result_date.getMonth() + 1}/${result_date.getFullYear()}.`,
+                hint_classes: "hint alert"
+            })
         }
     }
 
@@ -80,9 +99,7 @@ export default class PercentageTool extends React.Component{
         })
         .then(res => res.json())
         .then(res => {
-            this.setState({
-                hint: this.get_hint(res)
-            })
+            this.get_hint(res);
         })
         .catch(err => {
             console.log(err);
@@ -109,8 +126,9 @@ export default class PercentageTool extends React.Component{
                         <div className="plus_handle" onClick={this.increase_margin}>
                             <button type="button" className="flew_r_nowrap align_center justify_center">
                             <img src={plus} alt="Plus" arial-label="subtract" aria-labelledby="subtract"/>
-                            </button></div>
-                        {this.state.hint}
+                            </button>
+                        </div>
+                        <p className={this.state.hint_classes}>{this.state.hint_message}</p>
 
                     </div>
                     <CurrentData 

@@ -1,16 +1,13 @@
 import React from 'react';
 import "./currency_select.scss";
+import scroll_to_top from "../helper/scroll_to_top";
 
 import ProgressButton from './progress_button';
 
 class CurrencySelect extends React.Component {
 
     componentDidMount(){
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth"
-        })
+        scroll_to_top();
     }
 
     render(){

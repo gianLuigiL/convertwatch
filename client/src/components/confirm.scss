@@ -52,6 +52,14 @@ div.confirm_holder {
         background-repeat: no-repeat;
         background-position: 0px 0px;
         background-size: 20px 20px;
+        max-height: 100px;
+        opacity: 1;
+        transition: max-height 2.5s, opacity 2.5s;
+
+        &.bound {
+            opacity: 0;
+            max-height: 0px;
+        }
     
         &.ok {
             background-image: url("../assets/images/interface_icons/ok.svg");

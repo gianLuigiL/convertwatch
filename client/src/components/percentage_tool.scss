@@ -84,6 +84,15 @@ div.percentage_container {
     }
     p.hint {
         font-family: $title_fonts;
+        max-height: 100px;
+        opacity: 1;
+        transition: max-height 2.5s, opacity 2.5s;
+        overflow: hidden;
+
+        &.bound {
+            opacity: 0;
+            max-height: 0px;
+        }
 
         &:not(.empty) {
             background-repeat: no-repeat;
