@@ -6,7 +6,8 @@ import "./app_main.scss";
 import InitialCurrency from './initial_currency';
 import TargetCurrency from './target_currency';
 import PercentageSelect from './percentage_select';
-import Confirm from './confirm';
+
+
 import DonePage from './done';
 
 export default class AppMain extends Component {

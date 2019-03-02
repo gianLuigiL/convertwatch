@@ -1,8 +1,6 @@
 import React from 'react';
 import "./confirm.scss";
 
-import ProgressButton from "./progress_button";
-
 export default class Confirm extends React.Component {
     constructor(props){
         super(props);
@@ -23,27 +21,27 @@ export default class Confirm extends React.Component {
     render(){
         return (
             <>
-                    <div className="confirm_holder">
-                        <label htmlFor="email" className="email_label">
-                            <h5>
-                                Your email:
-                            </h5>
-                            <input type="email" name="email" id="email" placeholder="Insert your email" required ref={this.email} onInput={this.check_email}/>
-                        </label>
-                        {this.state.validation_message}
+                <div className="confirm_holder">
+                    <label htmlFor="email" className="email_label">
+                        <h5>
+                            Your email:
+                        </h5>
+                        <input type="email" name="email" id="email" placeholder="Insert your email" required ref={this.email} onInput={this.check_email}/>
+                    </label>
+                    {this.state.validation_message}
 
-                        <label htmlFor="terms" className="terms_label flex_r_nowrap align_center">
-                            <span className="custom_checkbox_container">
-                                <input type="checkbox" name="terms" id="terms" onChange={this.props.change_handler}/>
-                                <span className="custom_checkbox">
-                                    <img src={require("../images/interface_icons/tick.svg")} alt="checkbox_tick"/>
-                                    
-                                </span>
+                    <label htmlFor="terms" className="terms_label flex_r_nowrap align_center">
+                        <span className="custom_checkbox_container">
+                            <input type="checkbox" name="terms" id="terms" onChange={this.props.change_handler}/>
+                            <span className="custom_checkbox">
+                                <img src={require("../assets/images/interface_icons/tick.svg")} alt="checkbox_tick"/>
+                                
                             </span>
-                            I read and understand the terms.
-                        </label>
-                    </div>
-            </>
+                        </span>
+                        I read and understand the terms.
+                    </label>
+                </div>
+        </>
         )
     }
     //Sets appropriate validation messages into the state, runs at every keystroke (but throttles them)
