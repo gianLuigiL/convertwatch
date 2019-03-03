@@ -30,7 +30,7 @@ class App extends React.Component {
       target_currency: null,
       margin: 0,
       max_margin: 10,
-      min_margin: 0,
+      min_margin: -20,
       original_margin_value: 1,
       margin_value: 1,
       email: null,

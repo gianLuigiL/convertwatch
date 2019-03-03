@@ -16,7 +16,7 @@ const email_achieved_target = async () => {
 
     }
 
-    cron.schedule("0 30 16 * * *", async function () {
+    cron.schedule("0 06 15 * * *", async function () {
         const all_entries = await entries.get_all_entries();
         historical_rates.delete_today_rates()
         .then(success => {
