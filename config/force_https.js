@@ -2,7 +2,7 @@
  * This middleware for express forces the use of https
  */
 
- export default function force_https(req, res, next) {
+ module.exports.force_https = (req, res, next) => {
     //If deployed on heroku use https otherwise skip
     if(process.env.PORT) {
         if(req.headers['x-forwarded-proto'] !== "https") {
