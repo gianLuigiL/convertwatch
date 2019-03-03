@@ -5,7 +5,7 @@ const body_parser = require("body-parser");
 const { connect } = require("./config/db_connect");
 const currencies_details = require( "./client/src/currencies/currencies_details");
 const allowed_currencies = currencies_details.map(el => el.symbol);
-const { email_achieved_target } = require("./helper/tasks/jobs");
+const { email_achieved_target, check_old } = require("./helper/tasks/jobs");
 
 const { refresh_historical_data, create_latest } = require("./helper/tasks/historical_rates_crud");
 
@@ -26,6 +26,7 @@ refresh_historical_data()
 .then(success => {
     //Set up chron job
     email_achieved_target();
+    check_old();
     //Upon success start the app
     app.listen(port, () => console.log(`Listening on port ${port}`));
 })

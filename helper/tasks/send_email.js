@@ -13,13 +13,18 @@ const send_emails = (documents, subject, body) => {
 
     const transporter = nodemailer.createTransport(transport_config);
 
-    const email_addresses = documents.map(el => el.email);
-    return email_addresses.map(el => {
+    return documents.map(el => {
+        let body_custom = body;
+
+       body_custom = body_custom.replace("[INITIAL_CURRENCY]", el.initial_currency);
+       body_custom = body_custom.replace("[TARGET_CURRENCY]", el.target_currency);
+       body_custom = body_custom.replace("[MARGIN_VALUE]", (+el.margin_value).toFixed(4));
+
         const mailOptions = {
             ...base_mail,
-            to: el,
+            to: el.email,
             subject: subject,
-            html: body,
+            html: body_custom,
         }
 
         return transporter.sendMail(mailOptions)
@@ -28,7 +33,7 @@ const send_emails = (documents, subject, body) => {
                 console.log("Email rejected for " + el);
             }
 
-            return Promise.resolve(info)
+            return Promise.resolve(true)
         })
         .catch(err => {
             if(err){
@@ -39,7 +44,7 @@ const send_emails = (documents, subject, body) => {
 }
 
 const send_expired = (documents) => {
-    return send_emails(documents, "ConverWatch, your entry has expired.", email_expired);
+    return send_emails(documents, "ConverWatch, your entry has expired.", email_expired_html);
 }
 
 

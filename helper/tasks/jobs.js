@@ -1,5 +1,6 @@
 const cron = require("node-cron");
-const { send_target_reached } = require("./send_email");
+const { ObjectId } = require("mongodb");
+const { send_target_reached, send_expired, send_problem_notification } = require("./send_email");
 const { connect } = require("../../config/db_connect");
 const entries = require("./entries_crud");
 const historical_rates = require("./historical_rates_crud");
@@ -16,7 +17,7 @@ const email_achieved_target = async () => {
 
     }
 
-    cron.schedule("0 06 15 * * *", async function () {
+    cron.schedule("0 45 15 * * *", async function () {
         const all_entries = await entries.get_all_entries();
         historical_rates.delete_today_rates()
         .then(success => {
@@ -50,6 +51,25 @@ const email_achieved_target = async () => {
     });
 }
 
+const check_old = () => {
+    cron.schedule("00 00 17 * * *", async function () {
+        const all_entries = await entries.get_all_entries();
+        const old_entries = all_entries.filter(el => el._id.getTimestamp().getTime() < (new Date().getTime() - (1000 * 60 * 60 * 24 * 30 * 6)));
+        Promise.all(send_expired(old_entries)).then(results => {
+            entries.delete_entries(old_entries).then(results => {
+                if(results !== true) {
+                    console.log(results);
+                    send_problem_notification("Something happened while deleting old entries ")
+                } else {
+                    send_problem_notification("The routine deletion of old entries has completed");
+                }
+            })
+        })
+    });
+};  
+
+
 module.exports = {
-    email_achieved_target
+    email_achieved_target,
+    check_old
 }

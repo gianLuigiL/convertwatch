@@ -8,7 +8,7 @@ export default function AppHeader(props) {
             <div className="branding">
                 <NavLink to="/" className="flex_r_nowrap align-center flex_auto" tabIndex="0">
                     <span className="image">
-                        <img src="./assets/images/goggles.svg" alt="Logo image of goggles"/>
+                        <img src="./assets/images/goggles.svg" alt="Logo of goggles"/>
                     </span>
                     <span className="app_name flex_r_nowrap align_center">
                         <span>ConvertWatch</span>

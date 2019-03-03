@@ -59,6 +59,9 @@ const delete_entry = async (document) => {
 
 const delete_entries = async (documents) => {
     const deleted = documents.map(el => delete_entry(el));
+    if(deleted.length === 0) {
+        return Promise.resolve(true);
+    }
     Promise.all(deleted).then(deleted => {
         console.log(`${deleted.length} have been deleted.`);
         send_problem_notification(`${deleted.length} have been deleted.`);
