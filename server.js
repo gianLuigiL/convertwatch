@@ -2,6 +2,7 @@ const express = require("express");
 const compression = require("compression");
 const path = require("path");
 const body_parser = require("body-parser");
+const force_https = require("./config/force_https");
 const { connect } = require("./config/db_connect");
 const currencies_details = require( "./client/src/currencies/currencies_details");
 const allowed_currencies = currencies_details.map(el => el.symbol);
@@ -15,6 +16,7 @@ const port = process.env.PORT || 5000;
 
 const { send_problem_notification  } = require("./helper/tasks/send_email");
 
+app.use(force_https);
 app.use(compression());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: true}));
