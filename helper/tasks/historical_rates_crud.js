@@ -13,7 +13,7 @@ const { processHistoricalRatios, getRatios } = require("../server_converter_func
  * @returns {Promise<any[]>} Resolves to the complete relative ratios for today.
  */
 
-const get_latest = async () => {
+const get_latest_from_api = async () => {
 
     return fetch("https://api.exchangeratesapi.io/latest")
     .then(json_data => json_data.json())
@@ -25,10 +25,32 @@ const get_latest = async () => {
         return getRatios(complete_eur_based_rates)
     })
     .catch(err => {
-        console.log(err, "Failed to get latest data from currency API in 'get_latest'")
-        send_problem_notification("Failed to get latest data from currency API in 'get_latest'");
+        console.log(err, "Failed to get latest data from currency API in 'get_latest_from_api'")
+        send_problem_notification("Failed to get latest data from currency API in 'get_latest_from_api'");
         return Promise.reject(err);    
     })
+}
+
+const get_latest_rate = async () => {
+    //Get the connection
+    let db;
+    try {
+        db = await connect();
+    } catch (err) {
+        console.log(`There was a problem connecting to the database in "get_latest_rate"`);
+        send_problem_notification(`There was a problem connecting to the database in "get_latest_rate"`);
+        return false;
+    }
+
+    return db.collection("historical_rates").findOne({date: date_functions.get_today_string()})
+    .then(today_document => {
+        return today_document;
+    })
+    .catch(err => {
+        console.log(`There was a problem connecting to the database in "get_latest_rate"`);
+        send_problem_notification(`There was a problem connecting to the database in "get_latest_rate"`);
+        return false;
+    });
 }
 
 /**
@@ -47,7 +69,7 @@ const create_latest = async () => {
         return false;
     }
     //Get the latest todays rates
-    get_latest().then(results => {
+    return get_latest_from_api().then(results => {
         //generate a document to be inserted
         const today_document = {
             date: date_functions.get_today_string(),
@@ -188,7 +210,8 @@ const refresh_historical_data = async () => {
 
 
 module.exports = {
-    get_latest,
+    get_latest_from_api,
+    get_latest_rate,
     create_latest,
     create_historical_data,
     delete_historical_rates,

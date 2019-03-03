@@ -5,7 +5,9 @@
  */
 
 const check_target = (documents, rates) => {
-    return documents.filter(el => rates[el.initial_currency][target_currency] >= el.margin);
+    return documents.filter(el => {
+        return rates[el.initial_currency][el.target_currency] >= el.margin_value;
+    })
 }
 
 module.exports = {

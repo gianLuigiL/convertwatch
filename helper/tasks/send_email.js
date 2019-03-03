@@ -14,7 +14,6 @@ const send_emails = (documents, subject, body) => {
     const transporter = nodemailer.createTransport(transport_config);
 
     const email_addresses = documents.map(el => el.email);
-    console.log(email_addresses);
     return email_addresses.map(el => {
         const mailOptions = {
             ...base_mail,
@@ -28,7 +27,6 @@ const send_emails = (documents, subject, body) => {
             if(info.rejected && info.rejected.length) {
                 console.log("Email rejected for " + el);
             }
-            console.log("OK")
 
             return Promise.resolve(info)
         })
