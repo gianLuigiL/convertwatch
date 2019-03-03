@@ -20,7 +20,6 @@ class ProgressButton extends React.Component{
         }
     }
 
-
     render(){
         return (
             <div>
