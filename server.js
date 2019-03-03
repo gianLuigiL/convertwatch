@@ -2,7 +2,7 @@ const express = require("express");
 const compression = require("compression");
 const path = require("path");
 const body_parser = require("body-parser");
-const force_https = require("./config/force_https");
+const { force_https } = require("./config/force_https");
 const { connect } = require("./config/db_connect");
 const currencies_details = require( "./client/src/currencies/currencies_details");
 const allowed_currencies = currencies_details.map(el => el.symbol);
