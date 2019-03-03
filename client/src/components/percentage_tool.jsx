@@ -111,21 +111,21 @@ export default class PercentageTool extends React.Component{
         return (
                 <div className="margin_container">
                     <div className="percentage_container p10 flex_r_wrap align_center justify_center">
-                        <div className="minus_handle" onClick={this.decrease_margin}>
-                            <button  type="button" className="flew_r_nowrap align_center justify_center">
-                                <img src={minus} alt="Minus" arial-label="subtract" aria-labelledby="subtract"/>
+                        <div className="minus_handle" onClick={this.decrease_margin} >
+                            <button  type="button" className="flew_r_nowrap align_center justify_center" tabIndex="0">
+                                <img src={minus} alt="Minus" arial-label="Subtract one"/>
                             </button>
                         </div>
                         <div className="percentage_value flex_r_nowrap align_center justify_center">
                             <span className="flex_r_nowrap align_center justify_center">
-                                <span className="margin">
+                                <span className="margin" tabIndex="0">
                                     {this.props.margin}<span className="percentage_sign">%</span>
                                 </span>
                             </span>
                         </div>
                         <div className="plus_handle" onClick={this.increase_margin}>
-                            <button type="button" className="flew_r_nowrap align_center justify_center">
-                            <img src={plus} alt="Plus" arial-label="subtract" aria-labelledby="subtract"/>
+                            <button type="button" className="flew_r_nowrap align_center justify_center" tabIndex="0">
+                            <img src={plus} alt="Plus" arial-label="Add one"/>
                             </button>
                         </div>
                         <p className={this.state.hint_classes}>{this.state.hint_message}</p>

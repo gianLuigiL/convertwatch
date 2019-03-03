@@ -14,7 +14,7 @@ export default class DonePage extends React.Component {
         return (
             <>
                 <Headings title="Hooray!" text="**fireworks cracking in the background**"/>
-                <form action="/" className="done">  
+                <form action="/done" className="done">  
                     <div className="done">
                         <h3>You're all set! What now?</h3>
                         <p>You can start again with the button below or Convertwatch will send you an email if you reach your target within 6 months (and delete your entry), or will send you an email 

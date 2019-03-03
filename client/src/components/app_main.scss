@@ -1,26 +1,30 @@
 @import "../variables";
 
 main {
+    position: relative;
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;
     justify-self: stretch;
     align-self: stretch;
-    max-width: 900px;
-    
-    @media screen and (min-width: 750px) {
-        min-width: 750px;
-        margin: 0 auto;
-    }
-    @media screen and (min-width: 750px) {
-        min-width: 750px;
-    }
+    align-items: stretch;
 
     div.container {
         display: grid;
-        grid-template-rows: 70px auto;
+        grid-template-rows: 100px auto;
         grid-template-columns: 1fr;
         justify-self: stretch;
         align-self: stretch;
+        
+        @media screen and (min-width: 560px) {
+            min-width: 560px;
+            max-width: 900px;
+            justify-self: center;
+        }
+        @media screen and (min-width: 840px) {
+            min-width: 840px;
+            max-width: 900px;
+            justify-self: center;
+        }
     }
 }

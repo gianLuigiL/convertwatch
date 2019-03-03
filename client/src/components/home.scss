@@ -1,10 +1,9 @@
 @import "../variables";
 
 div.home_container {
-    position: relative;
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: absolute;
+    grid-row-start: 1;
+    grid-row-end: -1;
     height: 100%;
     width: 100%;
     background: url("../assets//images/background.svg");
@@ -25,8 +24,9 @@ div.home_container {
             text-align: center;
         }
         
-        h3 {
+        h2 {
             font-family: $title_fonts;
+            font-size: 18px;
             text-align: center;
         }
 

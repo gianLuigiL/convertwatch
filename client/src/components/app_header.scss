@@ -19,6 +19,10 @@ header {
             a {
                 color: inherit;
                 text-decoration: none;
+
+                &:focus {
+                    outline: 1px solid $main;
+                }
             }
 
             span.image {
@@ -34,6 +38,11 @@ header {
                 font-weight: $title_weight;
                 line-height: 0px;
             }
+        }
+
+        a {
+            text-decoration: none;
+
         }
     }
 }

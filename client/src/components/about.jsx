@@ -1,38 +1,30 @@
 import React from "react";
 import "./about.scss";
+import ProgressButton from "./progress_button";
+
 
 export default function about(props){
     return (
-        <div className="container">
+        <>
         <h1 className="title">FAQ</h1>
-            <div className="paragraph_highlight">
-                <h2><span className="highlight_title">Why</span> <span className="highlight_title">ConvertWatch?</span></h2>
-                <p>ConvertWatch has come to life because I'm a european national and crossing in and out the UK 
-                    with the ever-changing pound's value to look out for is a job on its own. <span role="img" aria-label="sad face">😱</span> So here comes ConvertWatch, a free, no-frills currency watchdog, all at screaming speed.</p>
-            </div>
-            <div className="paragraph_highlight">
-                <h2><span className="highlight_title">Is</span> <span className="highlight_title">it</span> <span className="highlight_title">free?</span></h2>
-                <p>ConvertWatch <strong>is free</strong>. I made ConvertWatch for myself and decided that it might be useful for everyone who crosses the border regularly. 
-                    One day karma will pay me back.</p>
-            </div>
+        <div className="about_container">
             <div className="paragraph_highlight">
                 <h2><span className="highlight_title">How</span> <span className="highlight_title">does</span> <span className="highlight_title">it</span> <span className="highlight_title">work?</span></h2>
                 <p>The whole thing takes 10 seconds, you select the initial currency. The target currency, and the percentage you hope to make.</p>
                 <p>Example: You are a british lad looking to go on holiday in Spain this August. You select the &pound; as your initial currency, the &euro; as target currency and the percentage you wish to reach</p>
-                <p>If your target percentage is met you will receive an email, if your percentage is not met in the arc of 6 months the entry will be automatically deleted.</p>
+                <p>If your target percentage is met you will receive an email, if your percentage is not met in the span of 6 months the entry will be automatically deleted.</p>
             </div>
             <div className="paragraph_highlight">
-                <h2><span className="highlight_title">Where</span> <span className="highlight_title">do</span> <span className="highlight_title">I</span> <span className="highlight_title">sign</span> <span className="highlight_title">up?</span></h2>
-                <p>No, you don't need to. ConvertWatch only needs your email to tell you when your target is met.</p>
+                <h2><span className="highlight_title">Why</span> <span className="highlight_title">ConvertWatch?</span></h2>
+                <p>Keeping tabs open for the best deal is a job on it's own, enter ConvertWatch. <strong>Free forever</strong>, fast, no account needed.</p>
             </div>
             <div className="paragraph_highlight">
                 <h2><span className="highlight_title">What</span> <span className="highlight_title">about</span> <span className="highlight_title">my</span> <span className="highlight_title">data?</span></h2>
-                <p>Only your email is stored and it's deleted the exact same moment you receive your confirmation, 
-                    either you reached your goal or the entry has exceeded 6 months</p>
+                <p>Only your email is required and it's deleted when you reach your goal or after 6 months if the target is not met. Who gives a damn about newsletters anyway?</p>
             </div>
             <div className="paragraph_highlight">
                 <h2><span className="highlight_title">Does</span> <span className="highlight_title">ConvertWatch</span> <span className="highlight_title">share</span> <span className="highlight_title">any</span> <span className="highlight_title">data?</span></h2>
-                <p>No, it doesn't, ConvertWatch is strictly <i>what-you-see-is-what-you-get</i>.</p>
+                <p>No, it doesn't, ConvertWatch has no business going on with third parties.</p>
             </div>
             <div className="paragraph_highlight">
                 <h2><span className="highlight_title">What</span> <span className="highlight_title">are</span> <span className="highlight_title">my</span> <span className="highlight_title">warranties?</span></h2>
@@ -54,7 +46,8 @@ export default function about(props){
                 <p>Yes! Press the button below to start!</p>
             </div>
 
-            <a href="/" className="btn outline_contrast main_background p10">START</a>
+            <ProgressButton can_navigate={true} next_section="/start" >START NOW</ProgressButton>
         </div>
+        </>
     )
 }

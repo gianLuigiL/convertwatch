@@ -17,26 +17,37 @@ export default class Confirm extends React.Component {
         this.message = React.createRef();
 
         this.check_email = this.check_email.bind(this);
+        this.assistive_click = this.assistive_click.bind(this);
+    }
+
+    assistive_click(e){
+        if(e.key === "Enter" || e.keyCode === 32) {
+            const input = e.target.getElementsByTagName("input")[0];
+            if(input) {
+                input.checked = !input.checked;
+                const checked = input.checked;
+                this.props.change_handler({target: {checked}});
+            }              
+        }                      
     }
 
     render(){
         return (
             <>
                 <div className="confirm_holder">
-                    <label htmlFor="email" className="email_label">
+                    <label id="label_for_email" htmlFor="email" className="email_label">
                         <h5>
                             Your email:
                         </h5>
-                        <input type="email" name="email" id="email" placeholder="Insert your email" required ref={this.email} onInput={this.check_email}/>
+                        <input type="email" name="email" id="email" placeholder="Insert your email" required ref={this.email} onInput={this.check_email} aria-labelledby="label_for_email"/>
                     </label>
                     <span className={this.state.validation_classes}>{this.state.validation_message}</span>
 
-                    <label htmlFor="terms" className="terms_label flex_r_nowrap align_center">
+                    <label htmlFor="terms" className="terms_label flex_r_nowrap align_center" tabIndex="0" onKeyDown={this.assistive_click} id="label_for_terms">
                         <span className="custom_checkbox_container">
-                            <input type="checkbox" name="terms" id="terms" onChange={this.props.change_handler}/>
+                            <input type="checkbox" name="terms" id="terms" onChange={this.props.change_handler} aria-labelledby="label_for_terms"/>
                             <span className="custom_checkbox">
                                 <img src={require("../assets/images/interface_icons/tick.svg")} alt="checkbox_tick"/>
-                                
                             </span>
                         </span>
                         I read and understand the terms.

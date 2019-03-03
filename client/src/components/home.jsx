@@ -8,15 +8,15 @@ export default function Home(props) {
         <div className="home_container flex_r_nowrap align_center justify_center">
             <div className="action_container">
                 <h1>ConvertWatch</h1>
-                <h3>
+                <h2>
                     The free currency watcher for busy people
-                </h3>
+                </h2>
                 <hr/>
                 <p>ConvertWatch keeps tabs open on currency values so you don't have to. No frills, no sign-up, and free.</p>
                 <p>Select the currency you want to track and get an email when you reach your target. Simple as that. </p>
                 <div className="button_holder">
                     <ProgressButton can_navigate={true} next_section="/start" >START</ProgressButton>
-                    <ProgressButton can_navigate={true} next_section="/about" >LEARN MORE</ProgressButton>
+                    <ProgressButton can_navigate={true} next_section="/about" >HOW DOES IT WORK</ProgressButton>
                 </div>
             </div>
         </div>

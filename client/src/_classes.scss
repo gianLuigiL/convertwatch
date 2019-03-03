@@ -98,7 +98,7 @@
         transform: translate(-50%, -50%);
     }
 
-    &:hover {
+    &:hover, &:focus {
         color: $main;
         border: 1px solid $main;
         box-shadow: 0px 0px 0px 1px $main_contrast, 6px 6px 0px $main_navi;
@@ -117,7 +117,7 @@
     box-shadow: 0px 0px 0px 1px transparent, 6px 6px 0px $main_navi;
     transition: color 0.6s, backgroud-color 0.6s, border 0.6s, box-shadow 0.3s;
 
-    &:hover {
+    &:hover, &:focus {
         background: $main_navi;
         color: $main;
         border: 1px solid $main;

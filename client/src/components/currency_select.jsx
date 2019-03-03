@@ -6,13 +6,30 @@ import ProgressButton from './progress_button';
 
 class CurrencySelect extends React.Component {
 
+    constructor(props){
+        super(props);
+        
+        this.assistiveClick = this.assistiveClick.bind(this);
+    }
+
     componentDidMount(){
         scroll_to_top();
     }
 
+    assistiveClick(e){
+        if(e.key === "Enter" || e.keyCode === 32) {
+            const input = e.target.getElementsByTagName("input")[0];
+            if(input) {
+                input.checked = true;
+                const value = input.value;
+                this.props.changeHandler({target: {value}});
+            }              
+        }                      
+    }
+
     render(){
         //currencies is an array of objs like [{name: "US Dollar", symbol: "USD"}]
-        const labels = this.props.currencies.map( el => {
+        const labels = this.props.currencies.map( (el, index )=> {
 
             const image = require("../assets/images/currency_icons/" + el.symbol.toLowerCase() + ".svg");
             const is_checked = this.props.preselected_choice === el.symbol ? "checked" : "";
@@ -20,13 +37,14 @@ class CurrencySelect extends React.Component {
 
             if (el.symbol === this.props.invalid_choice) return "";
             return (
-                <label key={el.symbol} className="currency_option">
+                <label key={el.symbol} className="currency_option"  onKeyDown={this.assistiveClick} htmlFor={el.symbol} tabIndex="0">
                     <input  type="radio" 
                             name="currency" 
                             id={el.symbol} 
                             value={el.symbol}
                             checked={is_checked}
                             onChange={this.props.changeHandler}
+                            tabIndex="0"
                             />
                     <span className="align_center">
                         <span className="currency_image">
@@ -42,9 +60,12 @@ class CurrencySelect extends React.Component {
         )
         return (
             <form action="" className="currency_select">
-                <div className="labels">
-                    {labels}
-                </div>
+                <fieldset>
+                    <legend>Select the initial currency, the one you already own.</legend>
+                    <div className="labels">
+                        {labels}
+                    </div>
+                </fieldset>
                 {this.props.children}
                 <ProgressButton 
                     next_section={this.props.next_section} 
