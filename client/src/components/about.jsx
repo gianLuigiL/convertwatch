@@ -16,7 +16,7 @@ export default function about(props){
             </div>
             <div className="paragraph_highlight">
                 <h2><span className="highlight_title">Why</span> <span className="highlight_title">ConvertWatch?</span></h2>
-                <p>Keeping tabs open for the best deal is a job on it's own, enter ConvertWatch. <strong>Free forever</strong>, fast, no account needed.</p>
+                <p>Keeping tabs open for the best deal is a job on its own, enter ConvertWatch. <strong>Free forever</strong>, fast, no account needed.</p>
             </div>
             <div className="paragraph_highlight">
                 <h2><span className="highlight_title">What</span> <span className="highlight_title">about</span> <span className="highlight_title">my</span> <span className="highlight_title">data?</span></h2>

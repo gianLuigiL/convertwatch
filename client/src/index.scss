@@ -1,11 +1,13 @@
 @font-face {
   font-family: 'Karla';
   src: url('./fonts/Karla-Regular.ttf')  format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Quicksand';
   src: url('./fonts/Quicksand-Medium.ttf')  format('truetype');
+  font-display: swap;
 }
 
 @import "./variables";
