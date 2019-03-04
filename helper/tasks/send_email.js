@@ -56,13 +56,18 @@ const send_crash_alert = () => {
     return send_emails([{email: "hello@convertwatch.com"}], "Node has crashed at Convertwatch", "Node crashed");
 }
 
-const send_problem_notification = (description) => {
-    return send_emails([{email: "hello@convertwatch.com"}], "There was a problem at ConvertWatch", description)[0];
+const send_problem_notification = (body) => {
+    return send_emails([{email: "hello@convertwatch.com"}], "There was a problem at ConvertWatch", body)[0];
+}
+
+const send_notification = (subject, body) => {
+    return send_emails([{email: "hello@convertwatch.com"}], subject, body)[0];
 }
 
 module.exports = {
     send_expired,
     send_target_reached,
     send_crash_alert,
-    send_problem_notification
+    send_problem_notification,
+    send_notification
 }
