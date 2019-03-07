@@ -8,6 +8,14 @@ div.percentage_container {
 
     div.minus_handle, div.plus_handle {
         position: relative;
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity 0.5s, transform 0.5s;
+
+        &.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
 
         button {
             position: relative;
@@ -63,11 +71,20 @@ div.percentage_container {
         width: 120px;
         height: 120px;
         margin: 0 30px;
+        opacity: 0;
         font-size: 2em;
         font-family: $title_fonts;
         line-height: 0px;
         border-radius: 50%;
         box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+        transform: scale(0);
+        transition: transform 0.5s, opacity 0.5s;
+
+        &.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
 
         > span {
             position: relative;

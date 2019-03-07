@@ -18,9 +18,17 @@ export default class PercentageTool extends React.Component{
         this.state = {
             hint: "",
             hint_message: "",
-            hint_classes: "hint bound"
+            hint_classes: "hint bound",
+            visible: false
         }
     }
+
+    componentDidMount(){
+        setTimeout(()=>{
+            this.setState({visible: true});
+        },200);
+    }
+
     /**
      * Handler for clicks on + button
      */
@@ -138,13 +146,13 @@ export default class PercentageTool extends React.Component{
                 <div className="margin_container">
                     <div className="percentage_container p10 flex_r_wrap align_center justify_center">
 
-                        <div className="minus_handle" onClick={this.decrease_margin} >
+                        <div className={`minus_handle ${this.state.visible ? "visible" : ""}`} onClick={this.decrease_margin} >
                             <button  type="button" className="flew_r_nowrap align_center justify_center" tabIndex="0">
                                 <img src={minus} alt="Minus" arial-label="Subtract one"/>
                             </button>
                         </div>
 
-                        <div className="percentage_value flex_r_nowrap align_center justify_center">
+                        <div className={`percentage_value flex_r_nowrap align_center justify_center ${this.state.visible ? "visible" : ""}`}>
                             <span className="flex_r_nowrap align_center justify_center">
                                 <span className="margin" tabIndex="0">
                                     {this.props.margin}<span className="percentage_sign">%</span>
@@ -152,7 +160,7 @@ export default class PercentageTool extends React.Component{
                             </span>
                         </div>
 
-                        <div className="plus_handle" onClick={this.increase_margin}>
+                        <div className={`plus_handle ${this.state.visible ? "visible" : ""}`} onClick={this.increase_margin}>
                             <button type="button" className="flew_r_nowrap align_center justify_center" tabIndex="0">
                             <img src={plus} alt="Plus" arial-label="Add one"/>
                             </button>
