@@ -1,8 +1,11 @@
+//Dependencies
 import React from 'react'
+//Styles
+import "./done.scss"
+//Components
 import ProgressButton from './progress_button';
 import Headings from './headings';
-
-import "./done.scss"
+//Helper function to scroll to top on load
 import scroll_to_top from '../helper/scroll_to_top';
 
 export default class DonePage extends React.Component {
@@ -30,11 +33,11 @@ export default class DonePage extends React.Component {
                         </div>
                         <div className="spacer"></div>
                     </div>
-                            <ProgressButton 
-                    next_section={"/"} 
-                    can_navigate={true}
-                    reset_state={this.props.reset_state} 
-                    >START AGAIN</ProgressButton>
+                    <ProgressButton 
+                        next_section={"/"} 
+                        can_navigate={true}
+                        reset_state={this.props.reset_state} 
+                        >START AGAIN</ProgressButton>
                 </form>
             </>
     

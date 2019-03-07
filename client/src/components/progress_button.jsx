@@ -1,6 +1,9 @@
+//Dependencies
 import React from 'react';
-import { withRouter } from "react-router-dom";
+//Styles
 import "./progress_button.scss";
+//Router dependencies
+import { withRouter } from "react-router-dom";
 
 class ProgressButton extends React.Component{
     constructor(props){
@@ -8,10 +11,11 @@ class ProgressButton extends React.Component{
 
         this.changeRoute = this.changeRoute.bind(this);
     }
-
+    //Guards if the component can actually navigate away and goes to the passed section
     changeRoute(e){
         e.preventDefault();
         if(this.props.can_navigate){
+            //If the next section is the home (last screen) reset pristine state
             if(this.props.next_section === "/") {
                 this.props.reset_state();
                 this.props.history.push(this.props.next_section)
@@ -31,8 +35,6 @@ class ProgressButton extends React.Component{
             </div>
         )        
     }
-
-
 }
-
+//Export with navigation capabilities
 export default withRouter(ProgressButton);

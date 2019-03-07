@@ -1,61 +1,37 @@
+//Dependencies
 import React from 'react';
+//Styles
 import "./currency_select.scss";
-import scroll_to_top from "../helper/scroll_to_top";
-
+//Components
 import ProgressButton from './progress_button';
+//Helper function to scorll to top on loading
+import scroll_to_top from "../helper/scroll_to_top";
+import CurrencyLabel from './currency_label';
 
 class CurrencySelect extends React.Component {
-
-    constructor(props){
-        super(props);
-        
-        this.assistiveClick = this.assistiveClick.bind(this);
-    }
-
     componentDidMount(){
         scroll_to_top();
     }
 
-    assistiveClick(e){
-        if(e.key === "Enter" || e.keyCode === 32) {
-            const input = e.target.getElementsByTagName("input")[0];
-            if(input) {
-                input.checked = true;
-                const value = input.value;
-                this.props.changeHandler({target: {value}});
-            }              
-        }                      
-    }
-
     render(){
-        //currencies is an array of objs like [{name: "US Dollar", symbol: "USD"}]
+        //currencies is an array of objects like [{name: "US Dollar", symbol: "USD"}]
         const labels = this.props.currencies.map( (el, index )=> {
-
-            const image = require("../assets/images/currency_icons/" + el.symbol.toLowerCase() + ".svg");
-            const is_checked = this.props.preselected_choice === el.symbol ? "checked" : "";
-
-
+            //Skip the currency that's not allowed
             if (el.symbol === this.props.invalid_choice) return "";
-            return (
-                <label key={el.symbol} className="currency_option"  onKeyDown={this.assistiveClick} htmlFor={el.symbol} tabIndex="0">
-                    <input  type="radio" 
-                            name="currency" 
-                            id={el.symbol} 
-                            value={el.symbol}
-                            checked={is_checked}
-                            onChange={this.props.changeHandler}
-                            tabIndex="0"
-                            />
-                    <span className="align_center">
-                        <span className="currency_image">
-                            <img src={image} alt={el.name + " currency symbol"}/>
-                        </span>
-                        <span className="currency_symbol">{el.symbol}</span> 
-                        <span className="currency_name">{el.name}</span>
-                    </span>
-
-                </label>
-                )
+            return <CurrencyLabel 
+                {...el} 
+                key={el.symbol} 
+                //Event handler
+                changeHandler={this.props.changeHandler} 
+                //Forbid same value for target and initial currency
+                invalid_choice={this.props.target_currency} 
+                //Preselect on back navogation
+                preselected_choice={this.props.initial_currency} 
+                //Delay in rendering
+                delay={index * 100}
+                //Checked?
+                target={this.props.target}
+                />
             }
         )
         return (

@@ -1,4 +1,6 @@
+//Dependencies
 import React from 'react';
+//Styles
 import "./current_data.scss";
 
 export default function CurrentData(props) {

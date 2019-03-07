@@ -1,5 +1,8 @@
+//Base dependencies
 import React from "react";
+//Styles
 import "./about.scss";
+//Components
 import ProgressButton from "./progress_button";
 
 
@@ -45,7 +48,8 @@ export default function about(props){
                 <h2><span className="highlight_title">Are</span> <span className="highlight_title">we</span> <span className="highlight_title">done</span> <span className="highlight_title">yet?!</span></h2>
                 <p>Yes! Press the button below to start!</p>
             </div>
-
+            
+            {/* Progress button can always navigate to the initial currency selection */}
             <ProgressButton can_navigate={true} next_section="/start" >START NOW</ProgressButton>
         </div>
         </>

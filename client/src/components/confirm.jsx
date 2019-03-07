@@ -1,4 +1,6 @@
+//Import dependencies
 import React from 'react';
+//Styles
 import "./confirm.scss";
 
 export default class Confirm extends React.Component {
@@ -10,9 +12,9 @@ export default class Confirm extends React.Component {
             validation_classes: "hint bound"
         }
 
-        //Holds timing offset for checking the email validation
+        //Holds the timer reference for the offset between the input and the check
         this.timer = null;
-        //Reference to the email input
+        //References to elements
         this.email = React.createRef();
         this.message = React.createRef();
 
@@ -20,12 +22,15 @@ export default class Confirm extends React.Component {
         this.assistive_click = this.assistive_click.bind(this);
     }
 
+    //Helps people navigating with the keyboard be able to trigger events
     assistive_click(e){
+        //Works with bot spacebar and enter
         if(e.key === "Enter" || e.keyCode === 32) {
             const input = e.target.getElementsByTagName("input")[0];
             if(input) {
                 input.checked = !input.checked;
                 const checked = input.checked;
+                //Mimic the event passing
                 this.props.change_handler({target: {checked}});
             }              
         }                      
@@ -87,6 +92,5 @@ export default class Confirm extends React.Component {
                 validation_classes
             })
         },300)
-        
     }
 }

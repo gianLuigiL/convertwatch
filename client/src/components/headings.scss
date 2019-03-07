@@ -1,10 +1,8 @@
 @import "../variables";
 
 div.headings {
-    h1 {
-    }
     p.muted {
-        font-family: $title-fonts;
         margin-top: -5px;
+        font-family: $title-fonts;
     }
 }

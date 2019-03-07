@@ -1,9 +1,14 @@
+//Dependencies
 import React from 'react'
+//Styles
 import "./percentage_tool.scss";
+//Components
 import CurrentData from './current_data';
+//Images for the buttons
 const plus = require("../assets/images/interface_icons/plus.svg")
 const minus = require("../assets/images/interface_icons/minus.svg")
 
+//Closure to store the timer reference
 let timer;
 
 export default class PercentageTool extends React.Component{
@@ -16,42 +21,61 @@ export default class PercentageTool extends React.Component{
             hint_classes: "hint bound"
         }
     }
-
+    /**
+     * Handler for clicks on + button
+     */
     increase_margin = () => {
+        //If the margin is in range
         if(this.props.margin === this.props.max_margin) return;
         this.props.increase_margin();
+        //If the timer has already been clicked, throttle
         if(timer) {
             clearTimeout(timer);
         }
         timer = setTimeout(this.get_suggestion, 500)
     }
 
+    /**
+     * Handler for clicks on the - button
+     */
     decrease_margin = () => {
+        //If the margin is in range and isn't the default minimum
         if(this.props.margin === this.props.min_margin || this.props.margin - 1 === this.props.min_margin) return;
         this.props.decrease_margin();
+        //If the timer has already been clicked, throttle
         if(timer) {
             clearTimeout(timer);
         }
         timer = setTimeout(this.get_suggestion, 500)
     }
 
-    str_to_time = (str) => {
-        const time =  new Date(str).getTime();
-        if (!time) {
-            alert("something went wrong while creating time check console");
-        } else {
-            return time;
-        }
+    /**
+     * Converts the passed date YYYY-MM-DD into a timestamp
+     * @param {string} date_string date to be converted
+     * @returns {number}
+     */
+    str_to_time = (date_string) => {
+        const time =  new Date(date_string).getTime();
+        return time;
     }
 
+    /**
+     * Returns now in milliseconds
+     * @returns {number}
+     */
     now = () => new Date().getTime();
 
+    /**
+     * Sets the appropriate message and classes in the state based on the result of the query.
+     * @param {any} response An object with a result property, that has a date property in YYYY-MM-DD.
+     * @returns {undefined}
+     */
     get_hint = ({result}) => {
         const result_date = new Date(result.date);
         const one_day = 1000 * 60 * 60 * 24;
         const one_week = one_day * 7;
         const one_month = one_day * 30;
-        
+        //If no result have been retrieved
         if (!result.date) {
             this.setState({
                 hint_message: "The target hasn't been reached in six months, it's better to aim a little lower.",
@@ -78,6 +102,7 @@ export default class PercentageTool extends React.Component{
                 hint_classes: "hint ok"
             })
         } else {
+            //If outside of colloquial timeframes specify date.
             this.setState({
                 hint_message: `The target has been reached the ${result_date.getDate()}/${result_date.getMonth() + 1}/${result_date.getFullYear()}.`,
                 hint_classes: "hint alert"
@@ -86,6 +111,7 @@ export default class PercentageTool extends React.Component{
     }
 
     get_suggestion = () => {
+        //Extract the needed properties
         const {initial_currency, target_currency, margin_value } = this.props;
         const body = JSON.stringify({initial_currency, target_currency, margin_value});
         fetch("/get_suggestion",{
@@ -99,11 +125,11 @@ export default class PercentageTool extends React.Component{
         })
         .then(res => res.json())
         .then(res => {
+            //Upon success process the response
             this.get_hint(res);
         })
         .catch(err => {
             console.log(err);
-            alert("something went wrong while retrieving suggestion, the page will now reload");
         })
     }
 
@@ -111,11 +137,13 @@ export default class PercentageTool extends React.Component{
         return (
                 <div className="margin_container">
                     <div className="percentage_container p10 flex_r_wrap align_center justify_center">
+
                         <div className="minus_handle" onClick={this.decrease_margin} >
                             <button  type="button" className="flew_r_nowrap align_center justify_center" tabIndex="0">
                                 <img src={minus} alt="Minus" arial-label="Subtract one"/>
                             </button>
                         </div>
+
                         <div className="percentage_value flex_r_nowrap align_center justify_center">
                             <span className="flex_r_nowrap align_center justify_center">
                                 <span className="margin" tabIndex="0">
@@ -123,11 +151,13 @@ export default class PercentageTool extends React.Component{
                                 </span>
                             </span>
                         </div>
+
                         <div className="plus_handle" onClick={this.increase_margin}>
                             <button type="button" className="flew_r_nowrap align_center justify_center" tabIndex="0">
                             <img src={plus} alt="Plus" arial-label="Add one"/>
                             </button>
                         </div>
+                        
                         <p className={this.state.hint_classes}>{this.state.hint_message}</p>
 
                     </div>

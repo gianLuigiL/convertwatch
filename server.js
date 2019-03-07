@@ -14,13 +14,13 @@ const currencies_details = require( "./client/src/currencies/currencies_details"
 const allowed_currencies = currencies_details.map(el => el.symbol);
 
 //Jobs to run with cron send email to expired and completed entries
-const { email_achieved_target, check_old } = require("./helper/tasks/jobs");
+const { email_achieved_target, check_expired_entries } = require("./helper/tasks/jobs");
 
 //Reset historical rates up to six months ago
 const { refresh_historical_data } = require("./helper/tasks/historical_rates_crud");
 
 //Email function to send me a notification
-const { send_problem_notification, send_notification  } = require("./helper/tasks/send_email");
+const { send_problem_notification } = require("./helper/tasks/send_email");
 
 const app = express();
 //Heroku uses PORT but dev uses 5000
@@ -38,7 +38,7 @@ refresh_historical_data()
 .then(success => {
     //Set up chron jobs, email entries who achieved the target and removed expired entries
     email_achieved_target();
-    check_old();
+    check_expired_entries();
     //Upon success start the app
     app.listen(port, () => console.log(`Listening on port ${port}`));
 })

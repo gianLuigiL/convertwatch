@@ -1,7 +1,9 @@
+//Base delpendencies
 import React from 'react';
+//Styles
 import "./app_footer.scss"
 
-export default function AppFooter() {
+export default function AppFooter(props) {
   return (
     <footer className="app_footer flex_r_wrap justify_center">
       <div className="social">

@@ -3,11 +3,11 @@ div.confirm_holder {
     text-align: center;
 
     label.email_label, label.terms_label {
-        font-family: $title_fonts;
-        text-align: center;
-        justify-content: center;
         display: flex;
         flex-flow: row wrap;
+        justify-content: center;
+        text-align: center;
+        font-family: $title_fonts;
     
         h5 {
             flex: 1 1 100%;
@@ -19,16 +19,16 @@ div.confirm_holder {
     
         input[type=email] {
             display: inline-block;
-            margin: auto;
-            padding: 8px;
-            font-size: 1.2em;
             width: 300px;
-            color: $main_contrast;
+            margin: auto;
+            margin-bottom: 10px;
+            padding: 8px;
             background: white;
+            font-size: 1.2em;
+            color: $main_contrast;
             border: 2px solid $main_navi;
             border-radius: 5px;
             transition: all  0.5s;
-            margin-bottom: 10px;
     
             @media screen and (max-width: 400px) {
                 width: 100%;
@@ -46,19 +46,19 @@ div.confirm_holder {
     span.hint {
         display: inline-block;
         height: 20px;
+        max-height: 100px;
         font-family: $title_fonts;
         font-size: 0.9em;
         font-weight: 800;
         background-repeat: no-repeat;
         background-position: 0px 0px;
         background-size: 20px 20px;
-        max-height: 100px;
         opacity: 1;
         transition: max-height 2.5s, opacity 2.5s;
 
         &.bound {
-            opacity: 0;
             max-height: 0px;
+            opacity: 0;
         }
     
         &.ok {

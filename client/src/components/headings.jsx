@@ -1,4 +1,6 @@
+//Dependencies
 import React from 'react';
+//Styles
 import "./headings.scss";
 
 export default function Headings(props) {

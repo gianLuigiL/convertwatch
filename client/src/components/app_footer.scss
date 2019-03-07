@@ -3,22 +3,19 @@
 footer {
     justify-self: stretch;
     align-self: stretch;
-    background: $main_contrast;
     padding: 10px;
+    background: $main_contrast;
     font-family: $body_fonts;
     color: black;
 
     div {
-        &.social {
-
-        }
 
         &.content {
             text-align: center;
 
             ul {
-                list-style-type: none;
                 padding: 0;
+                list-style-type: none;
 
                 li {
                     margin: 0;

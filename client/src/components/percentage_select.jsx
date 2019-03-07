@@ -1,9 +1,13 @@
+//Dependencies
 import React from 'react';
+//Styles
+import "./percentage_select.scss";
+//Components
 import Headings from './headings';
 import PercentageTool from "./percentage_tool";
 import Confirm from './confirm';
 import ProgressButton from "./progress_button";
-import "./percentage_select.scss";
+//Helper function to scroll to top on load
 import scroll_to_top from "../helper/scroll_to_top";
 
 export default class PercentageSelect extends React.Component {
@@ -20,13 +24,18 @@ export default class PercentageSelect extends React.Component {
                         <PercentageTool 
                             initial_currency={this.props.initial_currency}
                             target_currency={this.props.target_currency}
-                            margin_value={this.props.margin_value}
-                            original_margin_value={this.props.original_margin_value}
+                            //Margin in int %
                             margin={this.props.margin} 
+                            //Target margin float
+                            margin_value={this.props.margin_value}
+                            //original margin float
+                            original_margin_value={this.props.original_margin_value}
                             min_margin={this.props.min_margin}
                             max_margin={this.props.max_margin}
+                            //Handlers
                             decrease_margin={this.props.decrease_margin} 
-                            increase_margin={this.props.increase_margin}  
+                            increase_margin={this.props.increase_margin} 
+                            //Navigation 
                             next_section={this.props.next_section}
                             can_navigate={this.props.margin > 0}
                             />

@@ -18,16 +18,15 @@ form.done{
             &:not(:last-of-type) {
                 margin-bottom: 20px;
             }
-        }
-    
+        }    
         
         .fb {
             display: inline-block;
+            margin-right: 20px;
             padding: 10px;
+            padding-left: 35px;
             background: url("../assets/images/interface_icons/fb.svg") 5px center no-repeat, #3B5998;
             background-size: 25px;
-            padding-left: 35px;
-            margin-right: 20px;
             border-radius: 5px;
             font-family: $title_fonts;
             font-weight: 800;
@@ -40,11 +39,11 @@ form.done{
     
         .twitter {
             display: inline-block;
+            margin-right: 20px;
             padding: 10px;
+            padding-left: 35px;
             background: url("../assets/images/interface_icons/twitter.svg") 5px center no-repeat, #38A1F3;
             background-size: 25px;
-            padding-left: 35px;
-            margin-right: 20px;
             border-radius: 5px;
             font-family: $title_fonts;
             font-weight: 800;

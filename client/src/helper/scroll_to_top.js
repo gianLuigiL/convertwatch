@@ -1,3 +1,7 @@
+/**
+ * Scrolls to top of the window
+ * @returns {undefined}
+ */
 const scroll_to_top = () => {
     if(window) {
         window.scrollTo({

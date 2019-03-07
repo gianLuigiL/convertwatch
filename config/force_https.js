@@ -10,5 +10,7 @@
         } else {
             return next();
         }
+    } else {
+        return next();
     }
  }

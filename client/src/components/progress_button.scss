@@ -1,8 +1,8 @@
 button.progress {
     grid-row-start: -1;
     grid-row-end: -1;
-    overflow: hidden;
     align-items: stretch;
+    overflow: hidden;
     margin-top: 30px;
 
     &:hover, &:focus {
@@ -21,8 +21,8 @@ button.progress {
         height: 0px;
         width: 0px;
         content: "";
-        border-radius: 50%;
         z-index: 1;
+        border-radius: 50%;
         transition: height 0.4s, width 0.4s;
     }
     a {

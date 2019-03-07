@@ -6,12 +6,12 @@ div.home_container {
     grid-row-end: -1;
     height: 100%;
     width: 100%;
+    padding: 20px;
     background: url("../assets//images/background.svg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     font-family: $title_fonts;
-    padding: 20px;
 
     div.action_container {
         max-width: 400px;
@@ -20,14 +20,14 @@ div.home_container {
         color: white;
         
         h1 {
-            font-family: $title_fonts;
             text-align: center;
+            font-family: $title_fonts;
         }
         
         h2 {
+            text-align: center;
             font-family: $title_fonts;
             font-size: 18px;
-            text-align: center;
         }
 
         p {

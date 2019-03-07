@@ -8,7 +8,7 @@ const transport_config = {
     }
 }
 
-const base_mail = {
+const base_mail_options = {
     from: '"Convertwatch" <hello@convertwatch.com>',
     to: '',
     subject: '',
@@ -17,5 +17,5 @@ const base_mail = {
 
 module.exports = {
     transport_config,
-    base_mail
+    base_mail_options
 }

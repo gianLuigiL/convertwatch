@@ -6,8 +6,8 @@ form.currency_select {
     grid-auto-rows: auto;
 
     fieldset {
-        border-color: transparent;
         padding: 0;
+        border-color: transparent;
 
         legend {
             display: none;
@@ -17,17 +17,31 @@ form.currency_select {
             grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
             grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
             grid-gap: 10px;
+
+
         
                 label.currency_option {
                     position: relative;
                     display: inline-flex;
                     align-items: stretch;
                     margin-bottom: 10px;
-                    background: transparent;
-                    border-radius: 5px;
+                    opacity: 0;
+                    background: white;
                     font-family: $body_fonts;
-        
+                    border-radius: 5px;
                     cursor: pointer;
+                    transform: scale(0);
+                    transition: transform 0.3s;
+                                
+                    &.visible {
+                            transform: scale(1);
+                            opacity: 1;
+                    }
+
+                    &:focus, &:hover {
+                        transform: scale(1.1);
+                        z-index: 2;     
+                    }
             
                     input {
                         display: none;
@@ -52,12 +66,10 @@ form.currency_select {
                         display: inline-flex;
                         width: 100%;
                         padding: 8px;
-                        border-radius: 5px;
                         background: transparent;
+                        border-radius: 5px;
                         box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
                         transition: all 0.5s;
-            
-        
             
                         span.currency_image {
                             position: relative;
@@ -75,11 +87,11 @@ form.currency_select {
             
                         span.currency_symbol {
                             width: 40px;
+                            margin-right: 20px;
                             font-family: $title_fonts;
-                            color: $main_navi;
                             font-weight: 800;
                             font-size: 130%;
-                            margin-right: 20px;
+                            color: $main_navi;
                         }
         
                         span.currency_name {
