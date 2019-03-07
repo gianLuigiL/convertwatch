@@ -23,7 +23,7 @@ const email_achieved_target = async () => {
         return false;
     }
     //Schedule for 16:45 GMT
-    cron.schedule("0 45 15 * * *", async function () {
+    cron.schedule("30 50 19 * * *", async function () {
         //Get all the entries in the DB
         const all_entries = await entries.get_all_entries();
         //Delete today rates so that there are no possible duplicates
@@ -37,8 +37,9 @@ const email_achieved_target = async () => {
                     historical_rates.get_latest_rate()
                     .then(latest_rates => {
                         //When it gets the latest entries check who has achieved the target
-                        const entries_who_achieved = check_target(all_entries, latest_rates.ratios);
-                        //Send an email to the ones who achieved tehir target
+                        const entries_who_achieved = check_target(all_entries, latest_rates.rates);
+                        console.log(entries_who_achieved);
+                         //Send an email to the ones who achieved tehir target
                         send_target_reached(entries_who_achieved)
                         .then(success => {
                             //Delete those same entries who achieved. The service is a one time deal.
@@ -49,7 +50,7 @@ const email_achieved_target = async () => {
                             })
                         })
                         
-                    })
+                    } )
                     .catch(err => {
                         console.log(`There was a problem getting today's entry in scheduled task "get_latest_rate"`,err);
                         send_problem_notification(`There was a problem getting today's entry in scheduled task "get_latest_rate"`);
