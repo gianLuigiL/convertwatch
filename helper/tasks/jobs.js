@@ -23,7 +23,7 @@ const email_achieved_target = async () => {
         return false;
     }
     //Schedule for 16:45 GMT
-    cron.schedule("00 45 16 * * *", async function () {
+    cron.schedule("05 52 00 * * *", async function () {
         //Get all the entries in the DB
         const all_entries = await entries.get_all_entries();
         //Delete today rates so that there are no possible duplicates
@@ -38,7 +38,6 @@ const email_achieved_target = async () => {
                     .then(latest_rates => {
                         //When it gets the latest entries check who has achieved the target
                         const entries_who_achieved = check_target(all_entries, latest_rates.rates);
-                        console.log(entries_who_achieved);
                          //Send an email to the ones who achieved tehir target
                         send_target_reached(entries_who_achieved)
                         .then(success => {

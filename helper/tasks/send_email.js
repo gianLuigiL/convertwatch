@@ -53,7 +53,7 @@ const send_emails = (documents, subject, body) => {
  * @param {any[]} documents 
  * @returns {Promise<any[]>} Array of Promises of sent emails
  */
-const send_expired = (documents) => {
+const send_expired = async (documents) => {
     return send_emails(documents, "ConverWatch, your entry has expired.", email_expired_html);
 }
 
@@ -62,7 +62,7 @@ const send_expired = (documents) => {
  * @param {any[]} documents 
  * @returns {Promise<any[]>} Array of Promises of sent emails
  */
-const send_target_reached = (documents) => {
+const send_target_reached = async (documents) => {
     return send_emails(documents, "ConverWatch, you have reached your goal!", email_target_reached_html);
 }
 
@@ -70,7 +70,7 @@ const send_target_reached = (documents) => {
  * Send a crash alert email.
  * @returns {Promise<any[]>} Array with a single entry for the sent email.
  */
-const send_crash_alert = () => {
+const send_crash_alert = async () => {
     return send_emails([{email: "hello@convertwatch.com"}], "Node has crashed at Convertwatch", "Node crashed");
 }
 
