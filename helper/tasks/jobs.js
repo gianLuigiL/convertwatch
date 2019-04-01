@@ -23,7 +23,7 @@ const email_achieved_target = async () => {
         return false;
     }
     //Schedule for 16:45 GMT
-    cron.schedule("05 52 00 * * *", async function () {
+    cron.schedule("00 45 16 * * *", async function () {
         //Get all the entries in the DB
         const all_entries = await entries.get_all_entries();
         //Delete today rates so that there are no possible duplicates
