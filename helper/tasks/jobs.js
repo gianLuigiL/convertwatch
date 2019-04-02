@@ -73,7 +73,7 @@ const email_achieved_target = async () => {
  * @returns {undefined}
  */
 const check_expired_entries = () => {
-    cron.schedule("00 10 1 * * *", async function () {
+    cron.schedule("00 00 17 * * *", async function () {
         const all_entries = await entries.get_all_entries();
         //Decode timestamp from the id and check against a timestamp of six months ago
         const old_entries = all_entries.filter(el => el._id.getTimestamp().getTime() < (new Date().getTime() - (1000 * 60 * 60 * 24 * 30 * 6)));
@@ -83,7 +83,6 @@ const check_expired_entries = () => {
             //Then delete the entries
             entries.delete_entries(old_entries).then(results => {
                 if(results !== true) {
-                    console.log(results);
                     send_problem_notification("Something happened while deleting old entries @ cron job in 'check_expired_entries'")
                 } else {
                     send_notification("The routine deletion of old entries has completed", `There were ${old_entries.length} old entries in the databse that have been removed`);
