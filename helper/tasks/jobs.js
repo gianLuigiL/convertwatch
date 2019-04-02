@@ -73,12 +73,13 @@ const email_achieved_target = async () => {
  * @returns {undefined}
  */
 const check_expired_entries = () => {
-    cron.schedule("00 00 17 * * *", async function () {
+    cron.schedule("00 10 1 * * *", async function () {
         const all_entries = await entries.get_all_entries();
         //Decode timestamp from the id and check against a timestamp of six months ago
         const old_entries = all_entries.filter(el => el._id.getTimestamp().getTime() < (new Date().getTime() - (1000 * 60 * 60 * 24 * 30 * 6)));
         //Alert user
-        Promise.all(send_expired(old_entries)).then(results => {
+        Promise.all([send_expired(old_entries)])
+        .then(results => {
             //Then delete the entries
             entries.delete_entries(old_entries).then(results => {
                 if(results !== true) {
