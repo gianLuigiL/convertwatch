@@ -1,7 +1,11 @@
 const transport_config = {
     host: "smtp.ionos.co.uk",
-    port: "465",
-    secure: true,
+    port: "587",
+    secureConnection: 'false',
+    tls: {
+        ciphers: 'SSLv3',
+        rejectUnauthorized: false
+    },
     auth: {
         user: "hello@convertwatch.com",
         pass: "Q2EPmXp.3CiH_S5"
