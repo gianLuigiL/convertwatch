@@ -4,7 +4,7 @@ const transport_config = {
     secure: true,
     auth: {
         user: "hello@convertwatch.com",
-        pass: "Roodnepoym.23041993"
+        pass: "Q2EPmXp.3CiH_S5"
     }
 }
 
